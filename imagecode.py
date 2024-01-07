@@ -7,6 +7,15 @@ def test_generer_nom_image_contenant_message():
     assert generated_name == "image_message.png"
 
 def generer_nom_image_contenant_message(image_path):
+    """
+    Génère le nom par défaut de l'image contenant le message en lien avec le nom de l'image d'origine.
+
+    Parameters:
+    image_path (str): Le chemin de l'image d'origine.
+
+    Returns:
+    str: Le nom généré de l'image contenant le message.
+    """
     base_name = os.path.splitext(os.path.basename(image_path))[0]
     message_image_name = f"{base_name}_message.png"
     return message_image_name
@@ -30,7 +39,18 @@ def test_dissimuler_extraire_message():
     os.remove(message_image_path)
     
 def dissimuler_message(image_path, message, message_image_path=None):
-        
+    """
+    Dissimule un message dans une image en modifiant les composantes RGB des pixels.
+
+    Parameters:
+    image_path (str): Le chemin de l'image d'origine.
+    message (str): Le message à dissimuler.
+    message_image_path (str, optional): Le chemin de sortie pour l'image contenant le message.
+    Si None, un nom par défaut sera généré.
+
+    Returns:
+    str: Le chemin de l'image contenant le message.
+    """   
     original_image = Image.open(image_path)
     width, height = original_image.size
 
@@ -60,6 +80,15 @@ def dissimuler_message(image_path, message, message_image_path=None):
  
 
 def extraire_message(image_path):
+    """
+    Extrait un message dissimulé dans une image en récupérant les bits de poids faible des composantes RGB.
+
+    Parameters:
+    image_path (str): Le chemin de l'image contenant le message.
+
+    Returns:
+    str: Le message extrait.
+    """
     steg_image = Image.open(image_path)
     width, height = steg_image.size
 
