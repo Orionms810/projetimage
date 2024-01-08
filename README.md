@@ -71,13 +71,13 @@ Choix globaux et organisation :
 Les erreurs sont gérées par des messages d'erreur imprimés dans la console.
 Utilisation de la bibliothèque PIL pour la manipulation des images.
 Les noms des fonctions et des variables sont descriptifs pour une meilleure lisibilité.
+
+
 Programme 2 : Cacher et Extraire
 
 generer_nom_image_contenant_message:
+pareil que la 1ère méthode
 
-Structure de données : Utilisation de la bibliothèque PIL
-Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir le nom du fichier sans extension. Construction du nouveau nom avec l'ajout "_message.png".
-Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
 cachermessage :
 
 Structure de données : Utilisation des bibliothèques PIL
