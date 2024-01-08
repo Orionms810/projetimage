@@ -51,7 +51,7 @@ Programme 1 : Dissimulation et Extraction
 
 generer_nom_image_message :
 
-Structure de données : Utilisation de la bibliothèque PIL (Pillow) pour manipuler les images.
+Structure de données : Utilisation de la bibliothèque PIL
 Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir le nom du fichier sans extension. Construction du nouveau nom avec l'ajout "_message.png".
 Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
 dissimuler_extraire_message (Dissimulation et Extraction du message) :
