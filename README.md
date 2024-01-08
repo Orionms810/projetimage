@@ -93,7 +93,7 @@ Granularité des fonctions : Fonction relativement petite avec une tâche spéci
 
 
 Choix globaux et organisation :
-
+nous n'avons pas voulut décrire la 3e méthodes pour éviter toutes répétations.
 Les noms des fonctions et des variables sont descriptifs pour une meilleure lisibilité.
 Les fonctions de dissimulation et d'extraction sont séparées.
 
