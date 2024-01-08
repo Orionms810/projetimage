@@ -3,13 +3,13 @@ import os
 
 def generer_nom_image_contenant_message(image_path):
     """
-    Génère le nom par défaut de l'image contenant le message en lien avec le nom de l'image d'origine
+    Génère le nom par défaut de l'image contenant le message
 
-    Parameters:
-    image_path (str): Le chemin de l'image d'origine
+    Parametre:
+    image_path : Le chemin de l'image d'origine
 
     Returns:
-    str: Le nom généré de l'image contenant le message
+    Le nom généré de l'image contenant le message
     """
     base_name = os.path.splitext(os.path.basename(image_path))[0]
     message_image_name = f"{base_name}_message.png"
@@ -20,10 +20,10 @@ def dissimuler_message(image_path, message, message_image_path=None):
     Dissimule un message dans une image en modifiant les composantes RGB des pixels avec des nombres pairs et impairs
 
     Parametre
-    image_path (str): Le chemin de l'image d'origine
-    message (str): Le message à dissimuler
-    message_image_path (str, optional): Le chemin de sortie pour l'image contenant le message
-    Si None, un nom par défaut sera généré
+    image_path : Le chemin de l'image d'origine
+    message : Le message à dissimuler
+    message_image_path : Le chemin de sortie pour l'image contenant le message
+    Si rien, un nom par défaut sera généré
 
     Returns:
     Le chemin de l'image contenant le message
@@ -63,10 +63,10 @@ def extraire_message(image_path):
     Extrait un message dissimulé dans une image en récupérant les bits du message à partir des composantes RGB des pixels
 
     Parametre:
-    image_path (str): Le chemin de l'image contenant le message
+    image_path : Le chemin de l'image contenant le message
 
     Returns:
-    str: Le message extrait
+    Le message extrait
     """
     copie_image = Image.open(image_path)
     largeur, hauteur = copie_image.size
