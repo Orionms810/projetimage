@@ -90,12 +90,16 @@ Structure de données : Utilisation des bibliothèques PIL
 Choix et utilisation :
 Chargement de l'image avec Image.open et extraction des bits de poids faible pour reconstituer le message.
 Granularité des fonctions : Fonction relativement petite avec une tâche spécifique.
+
+
 Choix globaux et organisation :
 
 Les noms des fonctions et des variables sont descriptifs pour une meilleure lisibilité.
 Les fonctions de dissimulation et d'extraction sont séparées.
 
-pour ce qui est du journal de bord:
+
+
+journal de bord:
 
 Arthur-Louis:
 
