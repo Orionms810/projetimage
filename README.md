@@ -56,7 +56,7 @@ Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir 
 Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
 dissimuler_extraire_message (Dissimulation et Extraction du message) :
 
-Structure de données : Utilisation des bibliothèques PIL (Pillow) pour manipuler les images et des types de données de base (listes, chaînes de caractères).
+Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base (listes, chaînes de caractères).
 Choix et utilisation :
 Chargement de l'image avec Image.open et manipulation des pixels avec getpixel et putpixel.
 Le message est converti en binaire ('08b') et dissimulé dans les bits de poids faible des composantes RGB.
