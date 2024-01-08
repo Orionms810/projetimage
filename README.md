@@ -56,13 +56,13 @@ Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir 
 Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
 dissimuler_extraire_message (Dissimulation et Extraction du message) :
 
-Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base (listes, chaînes de caractères).
+Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base.
 Choix et utilisation :
 Chargement de l'image avec Image.open et manipulation des pixels avec getpixel et putpixel.
 Le message est converti en binaire ('08b') et dissimulé dans les bits de poids faible des composantes RGB.
 Pour l'extraction, les bits de poids faible sont récupérés et convertis en caractères ASCII.
-Granularité des fonctions : Fonctions relativement petites avec des tâches spécifiques (chargement d'image, dissimulation, extraction).
-test_generer_nom_image_message et test_dissimuler_extraire_message (Fonctions de test) :
+Granularité des fonctions : Fonctions relativement petites avec des tâches spécifiques.
+test_generer_nom_image_message et test_dissimuler_extraire_message:
 
 Structure de données : Aucune structure de données particulière.
 Choix et utilisation : Utilisation de l'assertion pour vérifier si les résultats attendus correspondent aux résultats réels.
@@ -72,26 +72,26 @@ Choix globaux et organisation :
 Les erreurs sont gérées par des messages d'erreur imprimés dans la console.
 Utilisation de la bibliothèque PIL pour la manipulation des images.
 Les noms des fonctions et des variables sont descriptifs pour une meilleure lisibilité.
-Programme 2 : Cacher et Extraire (cachermessage et message_out)
+Programme 2 : Cacher et Extraire
 
-generer_nom_image_contenant_message (Génération du nom de l'image) :
+generer_nom_image_contenant_message:
 
-Structure de données : Utilisation de la bibliothèque PIL (Pillow) pour manipuler les images.
+Structure de données : Utilisation de la bibliothèque PIL pour manipuler les images.
 Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir le nom du fichier sans extension. Construction du nouveau nom avec l'ajout "_message.png".
 Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
-cachermessage (Dissimulation du message) :
+cachermessage :
 
-Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base (listes, chaînes de caractères).
+Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base.
 Choix et utilisation :
 Chargement de l'image avec Image.open et modification des pixels pour dissimuler le message.
 Les bits du message sont dissimulés en modifiant les valeurs RGB des pixels.
-Granularité des fonctions : Fonction relativement petite avec une tâche spécifique (dissimulation).
-message_out (Extraction du message) :
+Granularité des fonctions : Fonction relativement petite avec une tâche spécifique.
+message_out :
 
-Structure de données : Utilisation des bibliothèques PIL (Pillow) pour manipuler les images et des types de données de base (listes, chaînes de caractères).
+Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base.
 Choix et utilisation :
 Chargement de l'image avec Image.open et extraction des bits de poids faible pour reconstituer le message.
-Granularité des fonctions : Fonction relativement petite avec une tâche spécifique (extraction).
+Granularité des fonctions : Fonction relativement petite avec une tâche spécifique.
 Choix globaux et organisation :
 
 Les erreurs sont gérées par des messages d'erreur imprimés dans la console.
