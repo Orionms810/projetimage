@@ -81,7 +81,7 @@ Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir 
 Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
 cachermessage (Dissimulation du message) :
 
-Structure de données : Utilisation des bibliothèques PIL (Pillow) pour manipuler les images et des types de données de base (listes, chaînes de caractères).
+Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base (listes, chaînes de caractères).
 Choix et utilisation :
 Chargement de l'image avec Image.open et modification des pixels pour dissimuler le message.
 Les bits du message sont dissimulés en modifiant les valeurs RGB des pixels.
