@@ -51,7 +51,7 @@ def dissimuler_message(image_path, message, message_image_path=None):
     Returns:
     Le chemin de l'image contenant le message
     """   
-    original_image = Image.open(image_path)
+    original_image = Image.open("Cars.png")
     width, height = original_image.size
 
     binary_message = ''.join(format(ord(char), '08b') for char in message)
