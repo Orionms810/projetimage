@@ -64,7 +64,7 @@ Pour l'extraction, les bits de poids faible sont récupérés et convertis en ca
 Granularité des fonctions : Fonctions relativement petites avec des tâches spécifiques.
 test_generer_nom_image_message et test_dissimuler_extraire_message:
 
-Choix et utilisation : Utilisation de l'assertion pour vérifier si les résultats attendus correspondent aux résultats réels.
+Choix et utilisation : Utilisation de assert pour vérifier si les résultats attendus correspondent aux résultats réels.
 Granularité des fonctions : Fonctions de test indépendantes, vérifiant des fonctionnalités spécifiques.
 Choix globaux et organisation :
 
