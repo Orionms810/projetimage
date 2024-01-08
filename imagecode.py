@@ -8,7 +8,7 @@ def test_generer_nom_image_message():
 
 def generer_nom_image_message(image_path):
     """
-    Génère nom par défaut de l'image contenant le message
+    Génère le nom par défaut de l'image contenant le message
 
     Parametre:
     image_path : Le chemin de l'image d'origine
@@ -50,34 +50,47 @@ def dissimuler_message(image_path, message, message_image_path=None):
 
     Returns:
     Le chemin de l'image contenant le message
-    """   
-    original_image = Image.open("Cars.png")
-    width, height = original_image.size
+    """
+    try:
+        original_image = Image.open(image_path)
+    except Exception as e:
+        print(f"Erreur lors de l'ouverture de l'image : {e}")
+        return None
+
+    largeur, hauteur = original_image.size
 
     binary_message = ''.join(format(ord(char), '08b') for char in message)
 
-    steg_image = original_image.copy()
+    copie_image = original_image.copy()
 
-    index = 0 
+    index = 0
 
-    for y in range(height):
-        for x in range(width):
-            pixel = list(steg_image.getpixel((x, y)))
+    for y in range(hauteur):
+        for x in range(largeur):
+            try:
+                pixel = list(copie_image.getpixel((x, y)))
+            except Exception as e:
+                print(f"Erreur lors de la récupération des pixels : {e}")
+                return None
 
             for i in range(3): 
                 if index < len(binary_message):
                     pixel[i] = int(format(pixel[i], '08b')[:-1] + binary_message[index], 2)
                     index += 1
 
-            steg_image.putpixel((x, y), tuple(pixel))
+            copie_image.putpixel((x, y), tuple(pixel))
 
     if message_image_path is None:
         message_image_path = generer_nom_image_message(image_path)
-        
-    steg_image.save(message_image_path)
+
+    try:
+        copie_image.save(message_image_path)
+    except Exception as e:
+        print(f"Erreur lors de l'enregistrement de l'image : {e}")
+        return None
 
     return message_image_path
- 
+
 
 def extraire_message(image_path):
     """
@@ -89,14 +102,15 @@ def extraire_message(image_path):
     Returns:
     Le message extrait
     """
-    steg_image = Image.open(image_path)
-    width, height = steg_image.size
+    copie_image = Image.open(image_path)
+    largeur, hauteur = copie_image.size
 
     binary_message = ''
-    for y in range(height):
-        for x in range(width):
-            pixel = list(steg_image.getpixel((x, y)))
-
+    for y in range(hauteur):
+        for x in range(largeur):
+            pixel = list(copie_image.getpixel((x, y)))
+            if not isinstance(pixel, (tuple, list)):
+                pixel = [pixel]
             for i in range(3):
                 binary_message += format(pixel[i], '08b')[-1]
     extracted_message = ''.join(chr(int(binary_message[i:i + 8], 2)) for i in range(0, len(binary_message), 8))
