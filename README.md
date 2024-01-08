@@ -99,6 +99,20 @@ Utilisation de la bibliothèque PIL pour la manipulation des images.
 Les noms des fonctions et des variables sont descriptifs pour une meilleure lisibilité.
 Les fonctions de dissimulation et d'extraction sont séparées pour une meilleure modularité.
 
+pour ce qui est du journal de bord:
+
+Arthur-Louis:
+
+- création de la 3e méthode
+- parti descriptif du rapport
+- parti contenu du rapport
+
+Milos:
+
+- création du projet sur Github
+- création de la méthode 1 et 2
+- parti mode d'emploi
+- parti journal de bord
 
 
 
