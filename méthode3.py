@@ -2,12 +2,31 @@ from PIL import Image
 import os 
 
 def imagename(image_path):
+    """
+    Crée un nom pour l'image qui contient le message
+
+    A pour paramètres : 
+    image_path, le chemin de l'image originale
+
+    Retourne le nom de l'image
+
+    """
     
     nom_image_origine = os.path.splitext(os.path.basename(image_path))[0]
     nom_image_message = f"{nom_image_origine}_message.png"
     return nom_image_message
 
 def cachermessage(image_path, message, chemin_image_message=None):
+    """
+    Permet de cacher un message dans une image à partir de la stéganographie, c'est à dire changer les couleurs des pixels de l'image.
+
+    A pour paramètres : 
+    image_path, le chemin de l'image originale
+    message : le message que l'on veut cacher
+    chemin_image_message : le chemin pour trouver l'image qui contient le message
+
+    Retourne le chemin de l'image qui contient le message
+    """
     image = Image.open(image_path)
     largeur, hauteur = image.size
     message_binaire = ''.join(format(ord(char), '08b')for char in message)
