@@ -52,11 +52,11 @@ Programme 1 : Dissimulation et Extraction
 generer_nom_image_message :
 
 Structure de données : Utilisation de la bibliothèque PIL
-Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir le nom du fichier sans extension. Construction du nouveau nom avec l'ajout "_message.png".
+Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir le nom du fichier sans extension.
 Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
 dissimuler_extraire_message :
 
-Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base.
+Structure de données : Utilisation des bibliothèques PIL
 Choix et utilisation :
 Chargement de l'image avec Image.open et manipulation des pixels avec getpixel et putpixel.
 Le message est converti en binaire ('08b') et dissimulé dans les bits de poids faible des composantes RGB.
@@ -76,19 +76,19 @@ Programme 2 : Cacher et Extraire
 
 generer_nom_image_contenant_message:
 
-Structure de données : Utilisation de la bibliothèque PIL pour manipuler les images.
+Structure de données : Utilisation de la bibliothèque PIL
 Choix et utilisation : Utilisation de la fonction os.path.splitext pour obtenir le nom du fichier sans extension. Construction du nouveau nom avec l'ajout "_message.png".
 Granularité des fonctions : Fonction simple pour générer le nom, utilisée uniquement dans le contexte du programme.
 cachermessage :
 
-Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base.
+Structure de données : Utilisation des bibliothèques PIL
 Choix et utilisation :
 Chargement de l'image avec Image.open et modification des pixels pour dissimuler le message.
 Les bits du message sont dissimulés en modifiant les valeurs RGB des pixels.
 Granularité des fonctions : Fonction relativement petite avec une tâche spécifique.
 message_out :
 
-Structure de données : Utilisation des bibliothèques PIL pour manipuler les images et des types de données de base.
+Structure de données : Utilisation des bibliothèques PIL
 Choix et utilisation :
 Chargement de l'image avec Image.open et extraction des bits de poids faible pour reconstituer le message.
 Granularité des fonctions : Fonction relativement petite avec une tâche spécifique.
