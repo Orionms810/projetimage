@@ -77,7 +77,6 @@ Programme 2 : Cacher et Extraire
 
 generer_nom_image_contenant_message:
 pareil que la 1ère méthode
-
 cachermessage :
 
 Structure de données : Utilisation des bibliothèques PIL
@@ -93,10 +92,8 @@ Chargement de l'image avec Image.open et extraction des bits de poids faible pou
 Granularité des fonctions : Fonction relativement petite avec une tâche spécifique.
 Choix globaux et organisation :
 
-Les erreurs sont gérées par des messages d'erreur imprimés dans la console.
-Utilisation de la bibliothèque PIL pour la manipulation des images.
 Les noms des fonctions et des variables sont descriptifs pour une meilleure lisibilité.
-Les fonctions de dissimulation et d'extraction sont séparées pour une meilleure modularité.
+Les fonctions de dissimulation et d'extraction sont séparées.
 
 pour ce qui est du journal de bord:
 
