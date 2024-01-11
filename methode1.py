@@ -123,7 +123,11 @@ def extraire_message(image_path):
 if __name__ == "__main__":
     user_message = input("Entrez le message à dissimuler : ")
     user_image_path = input("Entrez le chemin de l'image d'origine : ")
-    user_output_path = input("Entrez le chemin de sortie pour l'image contenant le message: ")
+    user_output_path = input("Entrez le chemin de sortie pour l'image contenant le message : ")
+
+    # Ajout de l'extension si le chemin de sortie ne la spécifie pas
+    if not user_output_path.endswith(".png"):
+        user_output_path = os.path.join(user_output_path, generer_nom_image_message(user_image_path))
 
     message_image_path = dissimuler_message(user_image_path, user_message, user_output_path)
     print(f"Message dissimulé dans l'image : {message_image_path}")
