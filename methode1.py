@@ -16,8 +16,8 @@ def generer_nom_image_message(image_path):
     Returns:
     nom généré de l'image contenant le message
     """
-    base_name = os.path.splitext(os.path.basename(image_path))[0]
-    message_image_name = f"{base_name}_message.png"
+    base_name, extension = os.path.splitext(os.path.basename(image_path))
+    message_image_name = f"{base_name}_message{extension}"
     return message_image_name
 
 
@@ -49,10 +49,13 @@ def dissimuler_message(image_path, message, message_image_path=None):
     Si rien, un nom sera généré automatiquement
 
     Returns:
-    Le chemin de l'image contenant le message
+    Le chemin de l'image contenant le message ou None en cas d'erreur
     """
     try:
         original_image = Image.open(image_path)
+    except FileNotFoundError:
+        print(f"Fichier non trouvé : {image_path}")
+        return None
     except Exception as e:
         print(f"Erreur lors de l'ouverture de l'image : {e}")
         return None
