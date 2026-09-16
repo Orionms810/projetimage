@@ -3,6 +3,10 @@
    =========================================================== */
 (() => {
   'use strict';
+  /* toujours arriver en haut de la page, même après un retour navigateur */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  scrollTo(0, 0);
+  addEventListener('load', () => scrollTo(0, 0));
   const grille = document.getElementById('shopGrid');
   if (!grille || !window.UNSEEN) return;
 
