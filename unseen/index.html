@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNSEEN — Strength Beyond Sight</title>
+<meta name="description" content="UNSEEN — Japanese Blossom Collection. Hoodie et t-shirt compressé. La force ne se voit pas. 見えない力.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="UNSEEN — Strength Beyond Sight">
+<meta property="og:description" content="Japanese Blossom Collection — 見えない力">
+<meta property="og:image" content="assets/hoodie_back.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/anton-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ░░ PRELOADER ░░ -->
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <img src="assets/wordmark.png" alt="UNSEEN" class="loader__mark">
+    <div class="loader__bar"><span id="loaderBar"></span></div>
+    <div class="loader__meta"><span>見えない力</span><span id="loaderNum">0</span></div>
+  </div>
+</div>
+
+<!-- ░░ GRAIN + VIGNETTE ░░ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+
+<!-- ░░ HEADER ░░ -->
+<header class="hdr" id="hdr">
+  <a href="#top" class="hdr__logo" aria-label="UNSEEN accueil">
+    <img src="assets/wordmark.png" alt="UNSEEN">
+  </a>
+  <nav class="hdr__nav">
+    <a href="#collection">Collection</a>
+    <a href="#story">Histoire</a>
+    <a href="#custom">Personnaliser</a>
+  </nav>
+  <a href="#collection" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
+</header>
+
+<div class="legal">© 2026 UNSEEN <i>/</i> TERMS &amp; CONDITIONS <i>/</i> PRIVACY <i>/</i> COOKIES</div>
+
+<!-- ░░ HERO ░░ -->
+<section class="hero" id="top">
+  <div class="hero__bg" data-speed="0.25">
+    <div class="hero__tile"></div>
+  </div>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="hero__kicker"><span>桜の力</span> — Japanese Blossom Collection</p>
+    <h1 class="hero__mark">
+      <img src="assets/wordmark.png" alt="UNSEEN">
+    </h1>
+    <p class="hero__tag">S T R E N G T H &nbsp; B E Y O N D &nbsp; S I G H T</p>
+    <p class="hero__jp">— 見えない力 —</p>
+  </div>
+  <div class="scrollcue"><span class="scrollcue__line"></span>SCROLL TO EXPLORE</div>
+</section>
+
+<!-- ░░ MARQUEE ░░ -->
+<section class="marquee" aria-hidden="true">
+  <div class="marquee__track" id="marquee1">
+    <span>UNSEEN <i>✦</i> 見えない力 <i>✦</i> STRENGTH BEYOND SIGHT <i>✦</i> 桜の力 <i>✦</i> </span>
+    <span>UNSEEN <i>✦</i> 見えない力 <i>✦</i> STRENGTH BEYOND SIGHT <i>✦</i> 桜の力 <i>✦</i> </span>
+  </div>
+</section>
+
+<!-- ░░ STORY : PINNED SCROLL ░░ -->
+<section class="story" id="story">
+  <div class="story__pin">
+    <div class="story__media">
+      <img src="assets/hoodie_back.jpg" alt="Hoodie UNSEEN vue dos" class="story__img is-active" data-step="0">
+      <img src="assets/hoodie_front.jpg" alt="Hoodie UNSEEN vue face" class="story__img" data-step="1">
+      <img src="assets/detail2.jpg" alt="Détail de l'imprimé éclair et sakura" class="story__img" data-step="2">
+    </div>
+    <div class="story__copy">
+      <p class="story__idx"><span id="storyIdx">01</span> / 03</p>
+      <h2 class="reveal-words" data-step="0">L'éclair traverse la fleur. Ce qui casse fait pousser.</h2>
+      <h2 class="reveal-words" data-step="1">Coton lourd 420g, coupe oversize, imprimé all-over édition limitée.</h2>
+      <h2 class="reveal-words" data-step="2">Chaque pétale est imprimé à la main. Aucune pièce n'est identique.</h2>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ SPLIT STATEMENT ░░ -->
+<section class="split">
+  <div class="split__img" data-speed="0.12"><img src="assets/detail3.jpg" alt="Détail tissu"></div>
+  <div class="split__txt">
+    <p class="eyebrow">01 — La force</p>
+    <p class="big">強さは<br>目に見え<br>ない</p>
+    <p class="body">La force ne se voit pas. Elle se porte. Chaque pièce UNSEEN est pensée pour ceux qui avancent sans le dire — l'orage sous les fleurs.</p>
+  </div>
+</section>
+
+<!-- ░░ COLLECTION ░░ -->
+<section class="coll" id="collection">
+  <header class="coll__head">
+    <div>
+      <p class="eyebrow">02 — La collection</p>
+      <h2 class="h-display">JAPANESE<br>BLOSSOM</h2>
+    </div>
+    <div class="coll__note">
+      <p>Deux pièces. Un même imprimé all-over : l'éclair blanc qui déchire les sakura.
+         Série numérotée, produite une seule fois.</p>
+      <p class="coll__stock"><span></span> 2 pièces disponibles — édition 2026</p>
+    </div>
+  </header>
+
+  <div class="coll__grid">
+    <article class="card" data-reveal>
+      <div class="card__media">
+        <img src="assets/hoodie_back.jpg" alt="Hoodie UNSEEN dos" class="card__a">
+        <img src="assets/hoodie_front.jpg" alt="Hoodie UNSEEN face" class="card__b">
+        <span class="card__badge">Édition limitée</span>
+      </div>
+      <div class="card__info">
+        <h3>Hoodie — Japanese Blossom</h3>
+        <p class="card__price">89 €</p>
+      </div>
+      <div class="card__sizes" role="group" aria-label="Tailles hoodie">
+        <button type="button">S</button><button type="button">M</button>
+        <button type="button">L</button><button type="button">XL</button>
+      </div>
+      <button class="btn btn--fill card__add" type="button" data-name="Hoodie Japanese Blossom">Ajouter au panier</button>
+    </article>
+
+    <article class="card" data-reveal>
+      <div class="card__media">
+        <img src="assets/tee_front.jpg" alt="T-shirt compressé UNSEEN face" class="card__a">
+        <img src="assets/tee_back.jpg" alt="T-shirt compressé UNSEEN dos" class="card__b">
+        <span class="card__badge">Nouveau</span>
+      </div>
+      <div class="card__info">
+        <h3>T-shirt compressé — Japanese Blossom</h3>
+        <p class="card__price">45 €</p>
+      </div>
+      <div class="card__sizes" role="group" aria-label="Tailles t-shirt">
+        <button type="button">S</button><button type="button">M</button>
+        <button type="button">L</button><button type="button">XL</button>
+      </div>
+      <button class="btn btn--fill card__add" type="button" data-name="T-shirt compressé Japanese Blossom">Ajouter au panier</button>
+    </article>
+  </div>
+</section>
+
+<!-- ░░ HORIZONTAL GALLERY ░░ -->
+<section class="gal" id="gal">
+  <div class="gal__pin">
+    <div class="gal__track" id="galTrack">
+      <div class="gal__item gal__item--txt">
+        <p class="eyebrow">03 — Les détails</p>
+        <p class="gal__lead">Regarde de plus près.<br><span>近くで見て</span></p>
+      </div>
+      <figure class="gal__item"><img src="assets/detail1.jpg" alt="Cordon de capuche brodé"><figcaption>Cordon &amp; capuche</figcaption></figure>
+      <figure class="gal__item"><img src="assets/detail2.jpg" alt="Imprimé éclair sakura"><figcaption>Imprimé éclair</figcaption></figure>
+      <figure class="gal__item"><img src="assets/detail3.jpg" alt="Col et étiquette UNSEEN"><figcaption>Col brodé UNSEEN</figcaption></figure>
+      <figure class="gal__item"><img src="assets/tee_back.jpg" alt="Dos du t-shirt compressé"><figcaption>桜の力 — dos</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ CUSTOM NAME ░░ -->
+<section class="custom" id="custom">
+  <div class="custom__bg" data-speed="0.18"></div>
+  <p class="custom__hint">CLIQUE ET ÉCRIS TON NOM</p>
+  <div class="custom__marquee"><div class="custom__track" id="nameTrack"></div></div>
+  <label class="custom__field">
+    <span class="sr-only">Ton nom</span>
+    <input id="nameInput" type="text" maxlength="14" value="UNSEEN" autocomplete="off" spellcheck="false">
+  </label>
+  <button class="btn btn--ghost" type="button" id="shareBtn" data-magnetic>Partager</button>
+</section>
+
+<!-- ░░ FOOTER ░░ -->
+<footer class="ftr">
+  <img src="assets/wordmark.png" alt="UNSEEN" class="ftr__mark">
+  <p class="ftr__tag">STRENGTH BEY<b>O</b>ND SIGHT</p>
+  <p class="ftr__jp">— 見えない力 —</p>
+  <form class="ftr__form" id="newsForm">
+    <input type="email" required placeholder="ton@email.com" aria-label="Adresse e-mail">
+    <button class="btn btn--fill" type="submit">Rejoindre</button>
+  </form>
+  <p class="ftr__msg" id="newsMsg" role="status"></p>
+  <nav class="ftr__nav">
+    <a href="#collection">Collection</a><a href="#story">Histoire</a>
+    <a href="#custom">Personnaliser</a><a href="#top">Haut de page</a>
+  </nav>
+  <p class="ftr__legal">© 2026 UNSEEN APPAREL <i>/</i> TERMS <i>/</i> PRIVACY <i>/</i> COOKIES</p>
+</footer>
+
+<div class="bag" id="bag" role="status" aria-live="polite">
+  <span class="bag__dot"></span><span id="bagTxt">Panier (0)</span>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
