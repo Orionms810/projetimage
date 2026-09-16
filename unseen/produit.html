@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Produit — UNSEEN Winter Arc 2026</title>
+<meta name="description" content="Fiche produit UNSEEN — Winter Arc 2026.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/anton-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page">
+
+<!-- ░░ GRAIN + VIGNETTE ░░ -->
+<div class="progress" id="progress" aria-hidden="true"><span></span></div>
+<canvas class="petals" id="petals" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+
+<!-- ░░ HEADER ░░ -->
+<header class="hdr" id="hdr">
+  <a href="index.html" class="hdr__logo" aria-label="UNSEEN accueil">
+    <img src="assets/wordmark.png" alt="UNSEEN">
+  </a>
+  <nav class="hdr__nav">
+    <a href="boutique.html">Boutique</a>
+    <a href="index.html#custom">Personnaliser</a>
+  </nav>
+  <div class="hdr__actions">
+    <a href="boutique.html" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
+    <button class="bagbtn" type="button" id="bagOpen" aria-expanded="false" aria-controls="cart">
+      Panier <span class="bagbtn__n" id="bagCount">0</span>
+    </button>
+  </div>
+</header>
+
+<div class="legal">© 2026 UNSEEN <i>/</i> TERMS &amp; CONDITIONS <i>/</i> PRIVACY <i>/</i> COOKIES</div>
+
+
+<!-- ░░ FICHE PRODUIT ░░ -->
+<main class="prod" id="prod">
+  <nav class="prod__fil" aria-label="Fil d'Ariane">
+    <a href="index.html">Accueil</a> <i>/</i> <a href="boutique.html">Boutique</a>
+    <i>/</i> <span id="prodFil">Produit</span>
+  </nav>
+
+  <div class="prod__grid">
+    <section class="prod__media" aria-label="Visuels du produit">
+      <div class="prod__stage">
+        <img id="prodImg" src="" alt="" class="prod__img">
+        <button class="card__arrow card__arrow--prev" type="button" id="prodPrev" aria-label="Vue précédente">&#8592;</button>
+        <button class="card__arrow card__arrow--next" type="button" id="prodNext" aria-label="Vue suivante">&#8594;</button>
+        <span class="card__count" id="prodCount" aria-hidden="true"></span>
+      </div>
+      <div class="prod__thumbs" id="prodThumbs"></div>
+    </section>
+
+    <section class="prod__info">
+      <p class="eyebrow" id="prodBadge"></p>
+      <h1 class="prod__nom" id="prodNom"></h1>
+      <p class="prod__prix" id="prodPrix"></p>
+      <p class="prod__resume" id="prodResume"></p>
+
+      <div class="prod__bloc">
+        <p class="prod__label">Taille <span class="prod__stockline" id="prodStock"></span></p>
+        <div class="prod__sizes" id="prodSizes" role="group" aria-label="Choix de la taille"></div>
+      </div>
+
+      <div class="prod__bloc prod__achat">
+        <div class="prod__qty" role="group" aria-label="Quantité">
+          <button type="button" id="qtyMinus" aria-label="Diminuer la quantité">−</button>
+          <span id="qtyVal">1</span>
+          <button type="button" id="qtyPlus" aria-label="Augmenter la quantité">+</button>
+        </div>
+        <button class="btn btn--fill prod__add" type="button" id="prodAdd">Ajouter au panier</button>
+      </div>
+      <p class="prod__msg" id="prodMsg" role="status"></p>
+
+      <div class="prod__bloc">
+        <h2 class="prod__label">Description</h2>
+        <p class="prod__desc" id="prodDesc"></p>
+      </div>
+
+      <div class="prod__bloc">
+        <h2 class="prod__label">Caractéristiques</h2>
+        <dl class="prod__specs" id="prodSpecs"></dl>
+      </div>
+
+      <p class="prod__ship">Livraison offerte dès 100 € · Retours 30 jours · Expédié sous 48 h</p>
+    </section>
+  </div>
+
+  <section class="prod__autres">
+    <h2 class="eyebrow">Aussi dans la collection</h2>
+    <div class="shop__grid" id="prodAutres"></div>
+  </section>
+</main>
+
+<!-- ░░ FOOTER ░░ -->
+<footer class="ftr">
+  <img src="assets/wordmark.png" alt="UNSEEN" class="ftr__mark">
+  <p class="ftr__tag">STRENGTH BEY<b>O</b>ND SIGHT</p>
+  <p class="ftr__jp">— 見えない力 —</p>
+  <form class="ftr__form" id="newsForm">
+    <input type="email" required placeholder="ton@email.com" aria-label="Adresse e-mail">
+    <button class="btn btn--fill" type="submit">Rejoindre</button>
+  </form>
+  <p class="ftr__msg" id="newsMsg" role="status"></p>
+  <nav class="ftr__nav">
+    <a href="boutique.html">Boutique</a><a href="index.html#collection">Collection</a><a href="index.html#gal">Détails</a>
+    <a href="index.html#custom">Personnaliser</a><a href="index.html">Haut de page</a>
+  </nav>
+  <p class="ftr__legal">© 2026 UNSEEN APPAREL <i>/</i> TERMS <i>/</i> PRIVACY <i>/</i> COOKIES</p>
+</footer>
+
+
+
+<script src="js/produits.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/produit.js"></script>
+</body>
+</html>

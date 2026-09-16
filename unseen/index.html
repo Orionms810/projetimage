@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UNSEEN — Strength Beyond Sight</title>
-<meta name="description" content="UNSEEN — Japanese Blossom Collection. Hoodie et t-shirt compressé. La force ne se voit pas. 見えない力.">
+<meta name="description" content="UNSEEN — Winter Arc 2026 Collection. Hoodie et t-shirt compressé. La force ne se voit pas. 見えない力.">
 <meta name="theme-color" content="#000000">
 <meta property="og:title" content="UNSEEN — Strength Beyond Sight">
-<meta property="og:description" content="Japanese Blossom Collection — 見えない力">
+<meta property="og:description" content="Winter Arc 2026 Collection — 見えない力">
 <meta property="og:image" content="assets/hoodie_front.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,11 +40,12 @@
     <img src="assets/wordmark.png" alt="UNSEEN">
   </a>
   <nav class="hdr__nav">
+    <a href="boutique.html">Boutique</a>
     <a href="#collection">Collection</a>
     <a href="#custom">Personnaliser</a>
   </nav>
   <div class="hdr__actions">
-    <a href="#collection" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
+    <a href="boutique.html" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
     <button class="bagbtn" type="button" id="bagOpen" aria-expanded="false" aria-controls="cart">
       Panier <span class="bagbtn__n" id="bagCount">0</span>
     </button>
@@ -60,7 +61,7 @@
   </div>
   <div class="hero__glow" aria-hidden="true"></div>
   <div class="hero__content">
-    <p class="hero__kicker"><span>桜の力</span> — Japanese Blossom Collection</p>
+    <p class="hero__kicker"><span>桜の力</span> — Winter Arc 2026 Collection</p>
     <h1 class="hero__mark">
       <img src="assets/wordmark.png" alt="UNSEEN">
     </h1>
@@ -78,9 +79,22 @@
   </div>
 </section>
 
-<!-- ░░ SPLIT STATEMENT ░░ -->
+<!-- ░░ MANIFESTE + CUBE ░░ -->
 <section class="split">
-  <div class="split__img" data-speed="0.12"><img loading="lazy" decoding="async" src="assets/hoodie_side2.jpg" alt="Hoodie UNSEEN de profil"></div>
+  <div class="cube__stage">
+    <div class="cube" id="cube" tabindex="0" role="img"
+         aria-label="Hoodie UNSEEN présenté sur un cube rotatif — glisse pour le faire tourner">
+      <figure class="cube__face" style="--k:0"><img loading="lazy" decoding="async" src="assets/hoodie_front.jpg" alt=""></figure>
+      <figure class="cube__face" style="--k:1"><img loading="lazy" decoding="async" src="assets/hoodie_side2.jpg" alt=""></figure>
+      <figure class="cube__face" style="--k:2"><img loading="lazy" decoding="async" src="assets/hoodie_back.jpg" alt=""></figure>
+      <figure class="cube__face" style="--k:3"><img loading="lazy" decoding="async" src="assets/hoodie_side1.jpg" alt=""></figure>
+    </div>
+    <div class="cube__ctrl">
+      <button class="gal__arrow" type="button" id="cubePrev" aria-label="Tourner vers la gauche">&#8592;</button>
+      <p class="cube__hint">Glisse pour faire tourner</p>
+      <button class="gal__arrow" type="button" id="cubeNext" aria-label="Tourner vers la droite">&#8594;</button>
+    </div>
+  </div>
   <div class="split__txt">
     <p class="eyebrow">01 — La force</p>
     <p class="big">強さは<br>目に見え<br>ない</p>
@@ -93,7 +107,7 @@
   <header class="coll__head">
     <div>
       <p class="eyebrow">02 — La collection</p>
-      <h2 class="h-display">JAPANESE<br>BLOSSOM</h2>
+      <h2 class="h-display">WINTER<br>ARC 2026</h2>
     </div>
     <div class="coll__note">
       <p>Deux pièces. Un même imprimé all-over : l'éclair doré qui déchire les sakura.
@@ -104,37 +118,39 @@
 
   <div class="coll__grid">
     <article class="card" data-reveal>
-      <div class="card__media">
+      <a class="card__media" href="produit.html?ref=hoodie" aria-label="Voir la fiche du hoodie">
         <img loading="lazy" decoding="async" src="assets/hoodie_front.jpg" alt="Hoodie UNSEEN" class="card__main">
         <span class="card__badge">Édition limitée</span>
-      </div>
+        <span class="card__go">Voir la fiche</span>
+      </a>
       <div class="card__views" data-views="hoodie_front:Face,hoodie_back:Dos,hoodie_side1:Profil G,hoodie_side2:Profil D"></div>
       <div class="card__info">
-        <h3>Hoodie — Japanese Blossom</h3>
+        <h3><a href="produit.html?ref=hoodie">Hoodie — Winter Arc 2026</a></h3>
         <p class="card__price">89 €</p>
       </div>
       <div class="card__sizes" role="group" aria-label="Tailles hoodie">
         <button type="button">S</button><button type="button">M</button>
         <button type="button">L</button><button type="button">XL</button>
       </div>
-      <button class="btn btn--fill card__add" type="button" data-name="Hoodie — Japanese Blossom" data-price="89">Ajouter au panier</button>
+      <button class="btn btn--fill card__add" type="button" data-name="Hoodie — Winter Arc 2026" data-price="89">Ajouter au panier</button>
     </article>
 
     <article class="card" data-reveal>
-      <div class="card__media">
+      <a class="card__media" href="produit.html?ref=tee" aria-label="Voir la fiche du t-shirt compressé">
         <img loading="lazy" decoding="async" src="assets/tee_front.jpg" alt="T-shirt compressé UNSEEN" class="card__main">
         <span class="card__badge">Nouveau</span>
-      </div>
+        <span class="card__go">Voir la fiche</span>
+      </a>
       <div class="card__views" data-views="tee_front:Face,tee_back:Dos,tee_side1:Profil G,tee_side2:Profil D"></div>
       <div class="card__info">
-        <h3>T-shirt compressé — Japanese Blossom</h3>
+        <h3><a href="produit.html?ref=tee">T-shirt compressé — Winter Arc 2026</a></h3>
         <p class="card__price">45 €</p>
       </div>
       <div class="card__sizes" role="group" aria-label="Tailles t-shirt">
         <button type="button">S</button><button type="button">M</button>
         <button type="button">L</button><button type="button">XL</button>
       </div>
-      <button class="btn btn--fill card__add" type="button" data-name="T-shirt compressé — Japanese Blossom" data-price="45">Ajouter au panier</button>
+      <button class="btn btn--fill card__add" type="button" data-name="T-shirt compressé — Winter Arc 2026" data-price="45">Ajouter au panier</button>
     </article>
   </div>
 </section>
@@ -194,32 +210,15 @@
   </form>
   <p class="ftr__msg" id="newsMsg" role="status"></p>
   <nav class="ftr__nav">
-    <a href="#collection">Collection</a><a href="#gal">Détails</a>
+    <a href="boutique.html">Boutique</a><a href="#collection">Collection</a><a href="#gal">Détails</a>
     <a href="#custom">Personnaliser</a><a href="#top">Haut de page</a>
   </nav>
   <p class="ftr__legal">© 2026 UNSEEN APPAREL <i>/</i> TERMS <i>/</i> PRIVACY <i>/</i> COOKIES</p>
 </footer>
 
-<div class="bag" id="bag" role="status" aria-live="polite">
-  <span class="bag__dot"></span><span id="bagTxt">Panier (0)</span>
-</div>
 
-<!-- ░░ PANIER ░░ -->
-<div class="cart__veil" id="cartVeil" hidden></div>
-<aside class="cart" id="cart" aria-labelledby="cartTitle" aria-hidden="true">
-  <header class="cart__head">
-    <h2 id="cartTitle">Ton panier</h2>
-    <button class="cart__close" type="button" id="cartClose" aria-label="Fermer le panier">&#215;</button>
-  </header>
-  <ul class="cart__list" id="cartList"></ul>
-  <p class="cart__empty" id="cartEmpty">Ton panier est vide.<br><span>桜の力 — choisis une pièce.</span></p>
-  <footer class="cart__foot">
-    <div class="cart__total"><span>Total</span><strong id="cartTotal">0 €</strong></div>
-    <button class="btn btn--fill cart__pay" type="button" id="cartPay">Commander</button>
-    <p class="cart__note" id="cartNote">Livraison offerte dès 100 € — retours 30 jours.</p>
-  </footer>
-</aside>
-
+<script src="js/produits.js"></script>
+<script src="js/cart.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

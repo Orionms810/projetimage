@@ -154,93 +154,9 @@
   }), { threshold: .18 });
   $$('[data-reveal]').forEach(el => io.observe(el));
 
-  /* ---------- 10. Tailles, panier et tiroir ---------- */
-  const bag = $('#bag'), bagTxt = $('#bagTxt');
-  const cart = $('#cart'), veil = $('#cartVeil'), cartList = $('#cartList'),
-        cartEmpty = $('#cartEmpty'), cartTotal = $('#cartTotal'), cartNote = $('#cartNote'),
-        bagBtn = $('#bagOpen'), bagCount = $('#bagCount');
-  const KEY = 'unseen.cart';
-  let items = [], toast;
-
-  try { items = JSON.parse(localStorage.getItem(KEY)) || []; } catch (_) { items = []; }
-  const store = () => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (_) {} };
-
-  const flashBag = txt => {
-    bagTxt.textContent = txt;
-    bag.classList.add('is-on');
-    clearTimeout(toast);
-    toast = setTimeout(() => bag.classList.remove('is-on'), 3000);
-  };
-
-  const drawCart = () => {
-    const n = items.reduce((s, i) => s + i.qty, 0);
-    const total = items.reduce((s, i) => s + i.qty * i.price, 0);
-    bagCount.textContent = n;
-    cartTotal.textContent = total + ' €';
-    cartEmpty.hidden = items.length > 0;
-    cartNote.textContent = items.length
-      ? (total >= 100 ? 'Livraison offerte — retours 30 jours.' : `Plus que ${100 - total} € pour la livraison offerte.`)
-      : 'Livraison offerte dès 100 € — retours 30 jours.';
-    cartList.innerHTML = items.map((i, k) => `
-      <li class="cart__row">
-        <img src="${i.img}" alt="">
-        <div>
-          <p class="cart__name">${i.name}</p>
-          <p class="cart__meta">Taille ${i.size}</p>
-          <div class="cart__qty">
-            <button type="button" data-act="minus" data-k="${k}" aria-label="Retirer un exemplaire">−</button>
-            <span>${i.qty}</span>
-            <button type="button" data-act="plus" data-k="${k}" aria-label="Ajouter un exemplaire">+</button>
-          </div>
-        </div>
-        <div class="cart__side">
-          <span class="cart__price">${i.qty * i.price} €</span>
-          <button class="cart__del" type="button" data-act="del" data-k="${k}">Retirer</button>
-        </div>
-      </li>`).join('');
-    store();
-  };
-
-  let lastFocus = null;
-  const openCart = () => {
-    lastFocus = document.activeElement;
-    veil.hidden = false;
-    requestAnimationFrame(() => veil.classList.add('is-on'));
-    cart.classList.add('is-open');
-    cart.setAttribute('aria-hidden', 'false');
-    bagBtn.setAttribute('aria-expanded', 'true');
-    $('#cartClose').focus();
-  };
-  const closeCart = () => {
-    veil.classList.remove('is-on');
-    setTimeout(() => { veil.hidden = true; }, 450);
-    cart.classList.remove('is-open');
-    cart.setAttribute('aria-hidden', 'true');
-    bagBtn.setAttribute('aria-expanded', 'false');
-    lastFocus?.focus();
-  };
-  bagBtn.addEventListener('click', () => cart.classList.contains('is-open') ? closeCart() : openCart());
-  $('#cartClose').addEventListener('click', closeCart);
-  veil.addEventListener('click', closeCart);
-  addEventListener('keydown', e => { if (e.key === 'Escape' && cart.classList.contains('is-open')) closeCart(); });
-
-  cartList.addEventListener('click', e => {
-    const b = e.target.closest('button[data-act]'); if (!b) return;
-    const k = +b.dataset.k;
-    if (b.dataset.act === 'plus')  items[k].qty++;
-    if (b.dataset.act === 'minus') items[k].qty > 1 ? items[k].qty-- : items.splice(k, 1);
-    if (b.dataset.act === 'del')   items.splice(k, 1);
-    drawCart();
-  });
-
-  $('#cartPay').addEventListener('click', () => {
-    if (!items.length) { flashBag('Ton panier est vide'); return; }
-    const n = items.reduce((s, i) => s + i.qty, 0);
-    cartNote.textContent = `Commande de ${n} pièce${n > 1 ? 's' : ''} — le paiement arrive bientôt.`;
-  });
-
+  /* ---------- 10. Tailles et ajout au panier ---------- */
   $$('.card__sizes').forEach(g => g.addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return;
+    const b = e.target.closest('button'); if (!b || b.disabled) return;
     $$('button', g).forEach(x => x.classList.remove('is-sel'));
     b.classList.add('is-sel');
   }));
@@ -249,27 +165,20 @@
     const card = btn.closest('.card');
     const size = $('.card__sizes .is-sel', card);
     if (!size) {
-      flashBag('Choisis une taille');
+      window.PANIER?.message('Choisis une taille');
       $('.card__sizes', card).animate(
         [{ transform: 'translateX(-4px)' }, { transform: 'translateX(4px)' }, { transform: 'none' }],
         { duration: 260, iterations: 2 });
       return;
     }
-    const name = btn.dataset.name, price = +btn.dataset.price, s = size.textContent;
-    const img = $('.card__main', card).getAttribute('src');
-    const found = items.find(i => i.name === name && i.size === s);
-    found ? found.qty++ : items.push({ name, size: s, price, img, qty: 1 });
-    drawCart();
-    bagBtn.classList.add('is-pop');
-    setTimeout(() => bagBtn.classList.remove('is-pop'), 400);
-    flashBag(`${name} · ${s} — ajouté`);
-    openCart();
+    window.PANIER?.ajouter({
+      name: btn.dataset.name, size: size.textContent, price: +btn.dataset.price,
+      img: $('.card__main', card).getAttribute('src')
+    });
   }));
 
-  drawCart();
-
-  /* ---------- 11. Vues produit (vignettes cliquables) ---------- */
-  const exists = src => new Promise(res => {
+  /* ---------- 11. Vues produit : vignettes + flèches ---------- */
+  const existe = src => new Promise(res => {
     const im = new Image();
     im.onload = () => res(true);
     im.onerror = () => res(false);
@@ -277,32 +186,53 @@
   });
 
   $$('.card__views').forEach(async box => {
-    const main = $('.card__main', box.closest('.card'));
+    const card = box.closest('.card');
+    const main = $('.card__main', card);
     const vues = box.dataset.views.split(',').map(v => {
       const [nom, label] = v.split(':');
       return { src: `assets/${nom}.jpg`, label };
     });
     const dispo = [];
-    for (const v of vues) if (await exists(v.src)) dispo.push(v);
-    if (dispo.length < 2) return;                 // une seule vue : pas de sélecteur
+    for (const v of vues) if (await existe(v.src)) dispo.push(v);
+    if (dispo.length < 2) return;
 
-    dispo.forEach(v => {
+    let i = Math.max(0, dispo.findIndex(v => v.src === main.getAttribute('src')));
+    const vignettes = dispo.map(v => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.setAttribute('aria-pressed', String(v.src === main.getAttribute('src')));
       b.setAttribute('aria-label', `Voir : ${v.label}`);
       b.innerHTML = `<img src="${v.src}" alt=""><span>${v.label}</span>`;
-      b.addEventListener('click', () => {
-        if (main.getAttribute('src') === v.src) return;
-        $$('button', box).forEach(x => x.setAttribute('aria-pressed', 'false'));
-        b.setAttribute('aria-pressed', 'true');
-        main.classList.add('is-swap');
-        const pre = new Image();
-        pre.onload = () => { main.src = v.src; main.classList.remove('is-swap'); };
-        pre.src = v.src;
-      });
+      b.addEventListener('click', () => montrer(dispo.indexOf(v)));
       box.appendChild(b);
+      return b;
     });
+
+    const montrer = k => {
+      i = (k + dispo.length) % dispo.length;
+      const v = dispo[i];
+      vignettes.forEach((b, n) => b.setAttribute('aria-pressed', String(n === i)));
+      if (main.getAttribute('src') === v.src) return;
+      main.classList.add('is-swap');
+      const pre = new Image();
+      pre.onload = () => { main.src = v.src; main.classList.remove('is-swap'); };
+      pre.src = v.src;
+    };
+
+    /* flèches par-dessus l'image */
+    const media = $('.card__media', card);
+    [['prev', '←', -1], ['next', '→', 1]].forEach(([cls, txt, pas]) => {
+      const a = document.createElement('button');
+      a.type = 'button';
+      a.className = `card__arrow card__arrow--${cls}`;
+      a.innerHTML = txt;
+      a.setAttribute('aria-label', pas < 0 ? 'Vue précédente' : 'Vue suivante');
+      a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); montrer(i + pas); });
+      media.appendChild(a);
+    });
+    media.insertAdjacentHTML('beforeend',
+      `<span class="card__count" aria-hidden="true">${dispo.length} vues</span>`);
+
+    montrer(i);
   });
 
   /* ---------- 12. Personnalisation du nom ---------- */
@@ -426,7 +356,46 @@
     }
   };
 
-  /* ---------- 15. Inclinaison 3D des cartes + du logo ---------- */
+  /* ---------- 15. Cube produit (section 01) ---------- */
+  const cube = $('#cube');
+  if (cube && !reduced) {
+    const faces = $$('.cube__face', cube);
+    let ang = -28, vit = 0, tire = false, lx = 0, touche = false;
+
+    const rendre = () => {
+      cube.style.transform = `rotateX(-8deg) rotateY(${ang}deg)`;
+      faces.forEach((f, k) => {
+        const c = Math.cos((ang + k * 90) * Math.PI / 180);
+        f.style.filter = `brightness(${(.45 + .55 * Math.max(0, c)).toFixed(3)})`;
+      });
+    };
+    const boucle = () => {
+      if (!tire) {
+        if (Math.abs(vit) > .02) { ang += vit; vit *= .94; }
+        else if (!touche) ang += .18;
+      }
+      rendre();
+      requestAnimationFrame(boucle);
+    };
+    const prendre = e => {
+      tire = true; touche = true; lx = e.clientX;
+      cube.classList.add('is-grab'); cube.setPointerCapture?.(e.pointerId);
+    };
+    const bouger = e => {
+      if (!tire) return;
+      const dx = e.clientX - lx; lx = e.clientX;
+      ang += dx * .45; vit = dx * .45;
+    };
+    const lacher = () => { tire = false; cube.classList.remove('is-grab'); };
+    cube.addEventListener('pointerdown', prendre);
+    cube.addEventListener('pointermove', bouger);
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => cube.addEventListener(ev, lacher));
+    $('#cubePrev')?.addEventListener('click', () => { touche = true; vit = 0; ang -= 90; });
+    $('#cubeNext')?.addEventListener('click', () => { touche = true; vit = 0; ang += 90; });
+    boucle();
+  }
+
+  /* ---------- 16. Inclinaison 3D des cartes + du logo ---------- */
   if (!reduced && matchMedia('(hover:hover)').matches) {
     $$('.card').forEach(card => {
       const media = $('.card__media', card);

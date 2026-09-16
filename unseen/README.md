@@ -1,6 +1,6 @@
-# UNSEEN — site vitrine
+# UNSEEN — site vitrine & boutique
 
-Site one-page à défilement parallaxe pour la marque **UNSEEN** (collection *Japanese Blossom*),
+Site à défilement parallaxe pour la marque **UNSEEN** (collection *Winter Arc 2026*),
 inspiré des sites de campagne type Adidas × Foot Locker : fond noir, narration au scroll,
 typo display, et les visuels produit comme héros de la page.
 
@@ -20,19 +20,37 @@ Mise en ligne : déposer le dossier `unseen/` tel quel sur Netlify, Vercel, GitH
 
 ```
 unseen/
-├── index.html          # toutes les sections
+├── index.html          # accueil
+├── boutique.html       # la collection
+├── produit.html        # fiche produit (?ref=hoodie|tee)
+├── js/produits.js      # catalogue partagé : prix, stocks, descriptions, vues
+├── js/cart.js          # panier partagé (tiroir + localStorage)
+├── js/boutique.js      # page boutique
+├── js/produit.js       # fiche produit
 ├── css/style.css       # design system + animations
-├── js/main.js          # scroll, parallaxe, pins, pétales, panier (vanilla JS)
+├── js/main.js          # accueil : scroll, parallaxe, cube, pétales
 ├── fonts/              # Anton + Inter auto-hébergés (woff2)
 └── assets/             # visuels de la marque + imprimé de fond
 ```
 
-## Sections
+## Pages
+
+- **`index.html`** — l'accueil et ses sections ci-dessous
+- **`boutique.html`** — toute la collection, avec stock et accès aux fiches
+- **`produit.html?ref=hoodie`** ou **`?ref=tee`** — fiche produit : visuels avec flèches et
+  vignettes, description, caractéristiques, stock par taille, quantité, ajout au panier
+
+Le panier est partagé par les trois pages (`localStorage`), la fiche produit refuse les
+tailles épuisées et plafonne la quantité au stock disponible.
+
+## Sections de l'accueil
 
 1. **Hero** — motif sakura/éclair en parallaxe, logo UNSEEN, *Strength Beyond Sight*
 2. **Marquee** — bandeau défilant dont la vitesse suit le scroll
-3. **Manifeste** — 強さは目に見えない, image en parallaxe
-4. **Collection** — hoodie 89 € / t-shirt compressé 45 €, survol face↔dos, tailles, ajout panier
+3. **Manifeste** — 強さは目に見えない, avec un cube 3D qui présente les quatre faces
+   de la pièce (rotation automatique, glisser à la souris ou flèches)
+4. **Collection** — hoodie 89 € / t-shirt compressé 45 €, flèches et vignettes pour
+   parcourir les quatre vues, clic sur le visuel pour ouvrir la fiche
 5. **Détails** — carrousel horizontal : flèches cliquables, glisser, flèches du clavier
 6. **Personnalisation** — le visiteur tape son nom, il s'affiche en marquee géant (bouton Partager)
 7. **Footer** — newsletter, navigation, mentions
@@ -43,7 +61,10 @@ avec un effet de profondeur (taille, vitesse et opacité varient) et un vent qui
 ## Personnaliser
 
 - **Couleurs / typo** : variables `:root` en haut de `css/style.css` (`--pink`, `--black`, …)
-- **Prix, noms, tailles** : directement dans les blocs `<article class="card">` de `index.html`
+- **Prix, noms, stocks, descriptions** : `js/produits.js` — c'est la source unique pour
+  la boutique, les fiches et le panier. Les valeurs de stock sont des exemples, à brancher
+  sur un vrai back-office avant la mise en vente.
+- **Cartes de l'accueil** : les blocs `<article class="card">` de `index.html`
 - **Visuels** : `python3 tools/import-planche.py ta-planche.png` découpe une planche de
   8 vues sur fond noir, passe le blanc de l'imprimé en jaune et écrit les fichiers
   attendus dans `assets/`. La position des logos à préserver est déclarée dans `LOGOS`,
