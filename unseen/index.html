@@ -28,6 +28,7 @@
 </div>
 
 <!-- ░░ GRAIN + VIGNETTE ░░ -->
+<canvas class="petals" id="petals" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 <div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
@@ -150,12 +151,38 @@
   </div>
 </section>
 
+<!-- ░░ VUE 360 — ROTATION 3D ░░ -->
+<section class="spin" id="spin">
+  <header class="spin__head">
+    <p class="eyebrow">03 — Vue 360</p>
+    <h2 class="h-display">TOURNE<br>LA PIÈCE</h2>
+  </header>
+
+  <div class="spin__tabs" role="tablist" aria-label="Choisir une pièce">
+    <button type="button" role="tab" aria-selected="true"  data-prod="hoodie">Hoodie</button>
+    <button type="button" role="tab" aria-selected="false" data-prod="tee">T-shirt compressé</button>
+  </div>
+
+  <div class="spin__stage" id="spinStage" tabindex="0" role="application"
+       aria-label="Vue 360 : glisse ou utilise les flèches du clavier pour faire tourner la pièce">
+    <div class="spin__ring" id="spinRing"></div>
+    <div class="spin__floor" aria-hidden="true"></div>
+  </div>
+
+  <div class="spin__ctrl">
+    <button type="button" class="spin__arrow" id="spinLeft" aria-label="Tourner vers la gauche">←</button>
+    <p class="spin__hint" id="spinHint">Glisse pour faire tourner</p>
+    <button type="button" class="spin__arrow" id="spinRight" aria-label="Tourner vers la droite">→</button>
+  </div>
+</section>
+
+
 <!-- ░░ HORIZONTAL GALLERY ░░ -->
 <section class="gal" id="gal">
   <div class="gal__pin">
     <div class="gal__track" id="galTrack">
       <div class="gal__item gal__item--txt">
-        <p class="eyebrow">03 — Les détails</p>
+        <p class="eyebrow">04 — Les détails</p>
         <p class="gal__lead">Regarde de plus près.<br><span>近くで見て</span></p>
       </div>
       <figure class="gal__item"><img src="assets/detail1.jpg" alt="Cordon de capuche brodé"><figcaption>Cordon &amp; capuche</figcaption></figure>

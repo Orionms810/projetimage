@@ -34,9 +34,13 @@ unseen/
 3. **Histoire** — section épinglée : 3 visuels + texte révélé mot à mot
 4. **Manifeste** — 強さは目に見えない, image en parallaxe
 5. **Collection** — hoodie 89 € / t-shirt compressé 45 €, survol face↔dos, tailles, ajout panier
-6. **Détails** — galerie à défilement horizontal piloté par le scroll vertical
-7. **Personnalisation** — le visiteur tape son nom, il s'affiche en marquee géant (bouton Partager)
-8. **Footer** — newsletter, navigation, mentions
+6. **Vue 360** — la pièce tourne en 3D : on la fait pivoter à la souris, au doigt, aux flèches
+7. **Détails** — galerie à défilement horizontal piloté par le scroll vertical
+8. **Personnalisation** — le visiteur tape son nom, il s'affiche en marquee géant (bouton Partager)
+9. **Footer** — newsletter, navigation, mentions
+
+Des pétales et fleurs de sakura dessinés au canvas volent en permanence par-dessus la page,
+avec un effet de profondeur (taille, vitesse et opacité varient) et un vent qui suit le scroll.
 
 ## Personnaliser
 
@@ -44,6 +48,8 @@ unseen/
 - **Prix, noms, tailles** : directement dans les blocs `<article class="card">` de `index.html`
 - **Visuels** : remplacer les fichiers de `assets/` en gardant les mêmes noms
 - **Textes de l'histoire** : les trois `<h2 class="reveal-words">` de la section `#story`
+- **Vues 360** : l'objet `PRODUCTS` en haut du module 13 de `js/main.js` (une ligne = une face)
+- **Densité des pétales** : `const want = cw < 700 ? 18 : 36;` dans le module 14
 
 ## Notes techniques
 

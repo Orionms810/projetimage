@@ -137,7 +137,7 @@ h1,h2,h3{margin:0;font-weight:400}
 .hero__tile{
   position:absolute;inset:0;
   background:url("../assets/pattern.jpg") center/cover repeat;
-  opacity:.55;filter:saturate(1.1) contrast(1.05);
+  opacity:.4;filter:saturate(1.1) contrast(1.05) blur(1.5px);
   transform:scale(1.08);animation:breathe 14s ease-in-out infinite alternate;
 }
 @keyframes breathe{to{transform:scale(1.18)}}
@@ -147,7 +147,7 @@ h1,h2,h3{margin:0;font-weight:400}
 .hero__content{position:relative;z-index:2;text-align:center;padding:0 var(--pad)}
 .hero__kicker{font-size:.64rem;letter-spacing:.34em;text-transform:uppercase;color:var(--mute);margin:0 0 2rem}
 .hero__kicker span{font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;color:var(--pink-soft);letter-spacing:.1em}
-.hero__mark{margin:0}
+.hero__mark{margin:0;transition:transform .6s var(--ease)}
 .hero__mark img{
   width:min(760px,84vw);margin-inline:auto;
   filter:drop-shadow(0 0 40px rgba(255,45,120,.45));
@@ -315,3 +315,75 @@ h1,h2,h3{margin:0;font-weight:400}
 }
 
 .hero,.story,.coll,.gal,.custom{scroll-margin-top:92px}
+
+/* ===========================================================
+   PÉTALES DE SAKURA + 3D
+   =========================================================== */
+.petals{
+  position:fixed;inset:0;z-index:6;pointer-events:none;width:100%;height:100%;
+}
+
+/* ---------- vue 360 ---------- */
+.spin{position:relative;padding:clamp(70px,12vh,140px) var(--pad) clamp(80px,14vh,160px);
+  background:radial-gradient(70% 60% at 50% 40%,#131317,#000 75%);overflow:hidden}
+.spin__head{text-align:center;margin-bottom:clamp(26px,4vh,46px)}
+.spin__head .h-display{font-size:clamp(2.4rem,7.5vw,6rem)}
+.spin__tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:clamp(20px,3vh,34px)}
+.spin__tabs button{
+  background:transparent;border:1px solid var(--line);color:var(--mute);font-family:inherit;
+  font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;padding:.85em 1.6em;cursor:pointer;
+  transition:all .35s var(--ease);
+}
+.spin__tabs button:hover{border-color:#fff;color:#fff}
+.spin__tabs button[aria-selected="true"]{background:#fff;color:#000;border-color:#fff}
+
+.spin__stage{
+  position:relative;height:clamp(360px,58vh,600px);
+  perspective:1400px;perspective-origin:50% 45%;
+  cursor:grab;touch-action:pan-y;outline:none;
+}
+.spin__stage.is-grab{cursor:grabbing}
+.spin__stage:focus-visible{outline:1px solid var(--pink);outline-offset:14px}
+.spin__ring{
+  position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
+}
+.spin__face{
+  position:absolute;top:50%;left:50%;margin:0;transform:translate(-50%,-50%);
+  width:clamp(190px,26vw,300px);height:clamp(260px,38vw,420px);
+  transform-origin:50% 50%;backface-visibility:hidden;overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);background:#000;
+  box-shadow:0 30px 70px rgba(0,0,0,.65);
+}
+.spin__face img{width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none}
+.spin__face figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:.7em .9em;
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;
+  background:linear-gradient(transparent,rgba(0,0,0,.85));
+}
+.spin__floor{
+  position:absolute;left:50%;bottom:4%;transform:translateX(-50%);
+  width:min(520px,80%);height:90px;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(255,45,120,.3),transparent 70%);
+  filter:blur(14px);
+}
+.spin__ctrl{display:flex;align-items:center;justify-content:center;gap:1.4rem;margin-top:clamp(18px,3vh,32px)}
+.spin__arrow{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;
+  color:#fff;font-size:1rem;cursor:pointer;transition:all .3s var(--ease);font-family:inherit;
+}
+.spin__arrow:hover{border-color:var(--pink);color:var(--pink);transform:scale(1.08)}
+.spin__hint{margin:0;font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
+
+/* ---------- inclinaison 3D des cartes produit ---------- */
+.coll__grid{perspective:1200px}
+.card__media{transform-style:preserve-3d;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.card:hover .card__media{box-shadow:0 40px 80px rgba(255,45,120,.14)}
+.card__badge{transform:translateZ(40px)}
+
+@media (prefers-reduced-motion:reduce){
+  .petals{display:none}
+  .spin__stage{perspective:none;height:auto}
+  .spin__ring{position:static;transform:none!important;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .spin__face{position:static;transform:none!important;width:clamp(180px,30vw,260px)}
+  .spin__floor,.spin__ctrl{display:none}
+}
