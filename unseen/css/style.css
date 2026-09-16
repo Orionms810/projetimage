@@ -136,7 +136,7 @@ h1,h2,h3{margin:0;font-weight:400}
 .hero__bg{position:absolute;inset:-12% -6%;will-change:transform}
 .hero__tile{
   position:absolute;inset:0;
-  background:url("../assets/print.jpg") center/cover repeat;
+  background:url("../assets/print-bg.jpg") center/cover repeat;
   opacity:.34;filter:saturate(1.05) contrast(1.02) blur(.6px);
   transform:scale(1.08);animation:breathe 14s ease-in-out infinite alternate;
 }
@@ -253,7 +253,7 @@ h1,h2,h3{margin:0;font-weight:400}
 
 /* ---------- custom name ---------- */
 .custom{position:relative;padding:clamp(90px,16vh,190px) var(--pad);text-align:center;overflow:hidden;background:#000}
-.custom__bg{position:absolute;inset:-15%;background:url("../assets/print.jpg") center/cover;
+.custom__bg{position:absolute;inset:-15%;background:url("../assets/print-bg.jpg") center/cover;
   opacity:.28;filter:blur(2px)}
 .custom::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#000,transparent 30%,transparent 70%,#000)}
 .custom>*{position:relative;z-index:2}

@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>UNSEEN — banc d'essai 3D</title>
+<style>html,body{margin:0;background:#0a0a0c;height:100%}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+import * as THREE from '../js/vendor/three.module.min.js';
+import { RoomEnvironment } from '../js/vendor/RoomEnvironment.js';
+import { buildGarment, makeMaterials } from '../js/garment-model.js';
+
+const q = new URLSearchParams(location.search);
+const W = +(q.get('w') || 900), H = +(q.get('h') || 1100);
+const PROD = q.get('p') || 'hoodie';
+const YAW = +(q.get('yaw') || 0) * Math.PI / 180;
+const ZOOM = +(q.get('zoom') || 1);
+const SHOW_FLOOR = q.get('floor') !== '0';
+const TEX = q.get('tex') || '../assets/print.jpg';
+const CAM = (q.get('cam') || '0,0.02,3.9').split(',').map(Number);
+const TGT = (q.get('tgt') || '0,0,0').split(',').map(Number);
+const FOV = +(q.get('fov') || 30);
+
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H, false);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = .92;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
+scene.environmentIntensity = .20;
+
+const camera = new THREE.PerspectiveCamera(FOV, W / H, .05, 60);
+camera.position.set(CAM[0], CAM[1], CAM[2] / ZOOM);
+camera.lookAt(TGT[0], TGT[1], TGT[2]);
+
+const key = new THREE.DirectionalLight(0xfff2f6, 2.6); key.position.set(2.4, 3.4, 3.2);
+key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.left = -2; key.shadow.camera.right = 2; key.shadow.camera.top = 2; key.shadow.camera.bottom = -2;
+key.shadow.bias = -.0012; key.shadow.radius = 3;
+const rimP = new THREE.DirectionalLight(0xff2d78, 3.0); rimP.position.set(-3.4, 1.1, -2.2);
+const rimY = new THREE.DirectionalLight(0xffc400, 1.7); rimY.position.set(3.1, -.2, -2.8);
+const fill = new THREE.DirectionalLight(0xa79cc4, .85); fill.position.set(-1.7, -1.1, 2.6);
+const front = new THREE.DirectionalLight(0xffffff, .55); front.position.set(-.4, .6, 4);
+scene.add(key, rimP, rimY, fill, front);
+
+if (SHOW_FLOOR) {
+  const g = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.ShadowMaterial({ opacity: .45 }));
+  g.rotation.x = -Math.PI / 2; g.position.y = -.95; g.receiveShadow = true; scene.add(g);
+}
+
+const loader = new THREE.TextureLoader();
+const load = src => new Promise(res => loader.load(src, res));
+const [print, logo] = await Promise.all([load(TEX), load('../assets/wordmark.png')]);
+print.wrapS = print.wrapT = THREE.RepeatWrapping;
+print.colorSpace = THREE.SRGBColorSpace;
+print.anisotropy = renderer.capabilities.getMaxAnisotropy();
+logo.colorSpace = THREE.SRGBColorSpace;
+logo.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+const g = buildGarment(PROD, makeMaterials(print, logo));
+g.rotation.y = YAW;
+scene.add(g);
+renderer.render(scene, camera);
+window.__ready = true;
+</script></body></html>

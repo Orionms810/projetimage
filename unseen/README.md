@@ -23,10 +23,11 @@ unseen/
 ├── index.html          # toutes les sections
 ├── css/style.css       # design system + animations
 ├── js/main.js          # scroll, parallaxe, pins, pétales, panier (vanilla JS)
-├── js/garment3d.js     # modèles 3D du hoodie et du t-shirt (Three.js)
-├── js/vendor/          # Three.js r169 (licence MIT incluse)
+├── js/garment3d.js     # scène 3D de la section Vue 360 (Three.js)
+├── js/garment-model.js # géométrie des vêtements (corps, manches, capuche, plis)
 ├── fonts/              # Anton + Inter auto-hébergés (woff2)
-└── assets/             # visuels découpés depuis les planches de la marque
+├── tools/              # banc d'essai 3D + scripts de génération des visuels
+└── assets/             # imprimé 4096 px et rendus 3D des pièces
 ```
 
 ## Sections
@@ -58,10 +59,30 @@ avec un effet de profondeur (taille, vitesse et opacité varient) et un vent qui
 
 ## La 3D
 
-Le hoodie et le t-shirt ne sont pas des photos : leur géométrie est générée au chargement
-(corps, manches, capuche, poche, côtes, col) et l'imprimé all-over y est appliqué en texture,
-avec logo blanc en décalque sur la poitrine. Éclairage : clé blanche + contre-jour rose et or.
-Sans WebGL, la section retombe automatiquement sur l'ancien carrousel de photos.
+Le hoodie et le t-shirt ne sont pas des photos : leur géométrie est générée au chargement.
+Sections en super-ellipse (le tissu est plat devant/derrière, arrondi sur les côtés), pente
+d'épaule, manches greffées dans le corps, capuche en rouleau posée sur les épaules, poche
+kangourou, côtes des poignets et du bas, cordons. Les plis sont un bruit simplex multi-échelle
+appliqué le long des normales, avec assombrissement des creux en couleurs de sommet.
+Matière `MeshPhysicalMaterial` avec sheen (le duvet du coton), normal map de tissage générée
+en mémoire, environnement studio (PMREM) et ombre portée. Sans WebGL, la section retombe
+automatiquement sur un carrousel de photos.
+
+## Les visuels
+
+Les photos de départ de la marque faisaient 320 à 500 px : impossible d'en tirer du net en
+grand. Tous les visuels produit du site sont donc **rendus depuis la 3D** :
+
+| Fichier | Définition |
+|---|---|
+| `assets/hoodie_front|back.jpg`, `tee_front|back.jpg` | 2000 × 2500 |
+| `assets/detail1|2|3.jpg` | 2400 × 1360 |
+| `assets/print.jpg` (imprimé) | 2048 × 2048 en ligne, généré en 4096 |
+
+Pour les regénérer : `python3 tools/generate-print.py` (l'imprimé, en 4096 px), puis
+`python3 tools/render-shots.py` avec le site servi en local — le script pilote un Chromium
+qui charge `tools/preview.html` et photographie chaque cadrage. `tools/preview.html` accepte
+`?p=hoodie|tee&yaw=&zoom=&cam=&tgt=&fov=` pour régler un plan à la main.
 
 ## Notes techniques
 

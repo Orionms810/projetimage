@@ -11,7 +11,7 @@
 
   /* ---------- 1. Préloader ---------- */
   const loader = $('#loader'), bar = $('#loaderBar'), num = $('#loaderNum');
-  const imgs = $$('img');
+  const imgs = $$('img:not([loading="lazy"])');   // le préchargeur n'attend que le haut de page
   let loaded = 0, shown = 0;
 
   const bump = () => {
