@@ -3,10 +3,20 @@
    =========================================================== */
 (() => {
   'use strict';
-  /* toujours arriver en haut de la page, même après un retour navigateur */
+  /* toujours arriver en haut de la page : le navigateur restaure sinon la
+     position précédente, et le défilement doux de la feuille de style
+     transformerait le saut en animation */
+  const enHaut = () => {
+    try { scrollTo({ top: 0, left: 0, behavior: 'instant' }); } catch (_) { scrollTo(0, 0); }
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    try { parent !== window && parent.scrollTo(0, 0); } catch (_) { /* cadre d'une autre origine */ }
+  };
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  scrollTo(0, 0);
-  addEventListener('load', () => scrollTo(0, 0));
+  enHaut();
+  addEventListener('DOMContentLoaded', enHaut);
+  addEventListener('load', enHaut);
+  addEventListener('pageshow', enHaut);
   const $ = (s, r = document) => r.querySelector(s);
   if (!window.UNSEEN) return;
 

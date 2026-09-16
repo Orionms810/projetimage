@@ -356,43 +356,21 @@
     }
   };
 
-  /* ---------- 15. Cube produit (section 01) ---------- */
+  /* ---------- 15. Cube produit (section 01) : rotation continue ---------- */
   const cube = $('#cube');
   if (cube && !reduced) {
     const faces = $$('.cube__face', cube);
-    let ang = -28, vit = 0, tire = false, lx = 0, touche = false;
-
-    const rendre = () => {
+    let ang = -28;
+    const tourner = () => {
+      ang += .18;
       cube.style.transform = `rotateX(-8deg) rotateY(${ang}deg)`;
       faces.forEach((f, k) => {
         const c = Math.cos((ang + k * 90) * Math.PI / 180);
         f.style.filter = `brightness(${(.45 + .55 * Math.max(0, c)).toFixed(3)})`;
       });
+      requestAnimationFrame(tourner);
     };
-    const boucle = () => {
-      if (!tire) {
-        if (Math.abs(vit) > .02) { ang += vit; vit *= .94; }
-        else if (!touche) ang += .18;
-      }
-      rendre();
-      requestAnimationFrame(boucle);
-    };
-    const prendre = e => {
-      tire = true; touche = true; lx = e.clientX;
-      cube.classList.add('is-grab'); cube.setPointerCapture?.(e.pointerId);
-    };
-    const bouger = e => {
-      if (!tire) return;
-      const dx = e.clientX - lx; lx = e.clientX;
-      ang += dx * .45; vit = dx * .45;
-    };
-    const lacher = () => { tire = false; cube.classList.remove('is-grab'); };
-    cube.addEventListener('pointerdown', prendre);
-    cube.addEventListener('pointermove', bouger);
-    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => cube.addEventListener(ev, lacher));
-    $('#cubePrev')?.addEventListener('click', () => { touche = true; vit = 0; ang -= 90; });
-    $('#cubeNext')?.addEventListener('click', () => { touche = true; vit = 0; ang += 90; });
-    boucle();
+    tourner();
   }
 
   /* ---------- 16. Inclinaison 3D des cartes + du logo ---------- */
