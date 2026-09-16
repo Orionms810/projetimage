@@ -136,7 +136,7 @@ h1,h2,h3{margin:0;font-weight:400}
 .hero__bg{position:absolute;inset:-12% -6%;will-change:transform}
 .hero__tile{
   position:absolute;inset:0;
-  background:url("../assets/print-bg.jpg") center/cover repeat;
+  background:url("../assets/print.jpg") center/cover repeat;
   opacity:.34;filter:saturate(1.05) contrast(1.02) blur(.6px);
   transform:scale(1.08);animation:breathe 14s ease-in-out infinite alternate;
 }
@@ -172,27 +172,6 @@ h1,h2,h3{margin:0;font-weight:400}
   color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);
 }
 .marquee__track i{font-style:normal;color:var(--pink);-webkit-text-stroke:0;margin:0 .15em}
-
-/* ---------- story (pinned) ---------- */
-.story{height:340vh;position:relative;background:var(--black)}
-.story__pin{position:sticky;top:0;height:100svh;display:grid;place-items:center;overflow:hidden}
-.story__media{position:absolute;inset:0}
-.story__img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;transform:scale(1.12);transition:opacity 1s var(--ease),transform 1.6s var(--ease);
-}
-.story__img.is-active{opacity:.62;transform:scale(1)}
-.story__pin::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 50%,rgba(0,0,0,.35),rgba(0,0,0,.82))}
-.story__copy{position:relative;z-index:2;max-width:min(980px,86vw);text-align:center}
-.story__idx{font-size:.6rem;letter-spacing:.3em;color:var(--pink-soft);margin:0 0 2.2rem}
-.story__copy h2{
-  position:absolute;left:0;right:0;top:0;
-  font-size:clamp(1.5rem,4.4vw,3.4rem);line-height:1.18;font-weight:400;
-  opacity:0;pointer-events:none;transition:opacity .5s;
-}
-.story__copy h2.is-on{opacity:1;position:relative}
-.reveal-words .w{display:inline-block;opacity:.12;transition:opacity .5s var(--ease),transform .5s var(--ease);transform:translateY(6px)}
-.reveal-words .w.is-lit{opacity:1;transform:none;text-shadow:0 0 26px rgba(255,45,120,.35)}
 
 /* ---------- split ---------- */
 .split{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,6vw,90px);
@@ -253,7 +232,7 @@ h1,h2,h3{margin:0;font-weight:400}
 
 /* ---------- custom name ---------- */
 .custom{position:relative;padding:clamp(90px,16vh,190px) var(--pad);text-align:center;overflow:hidden;background:#000}
-.custom__bg{position:absolute;inset:-15%;background:url("../assets/print-bg.jpg") center/cover;
+.custom__bg{position:absolute;inset:-15%;background:url("../assets/print.jpg") center/cover;
   opacity:.28;filter:blur(2px)}
 .custom::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#000,transparent 30%,transparent 70%,#000)}
 .custom>*{position:relative;z-index:2}
@@ -307,14 +286,12 @@ h1,h2,h3{margin:0;font-weight:400}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   html{scroll-behavior:auto}
-  .story,.gal{height:auto}
-  .story__pin,.gal__pin{position:static;height:auto;padding:clamp(60px,10vh,120px) 0}
-  .story__copy h2{position:relative;opacity:1;margin-bottom:2rem}
-  .reveal-words .w{opacity:1;transform:none}
+  .gal{height:auto}
+  .gal__pin{position:static;height:auto;padding:clamp(60px,10vh,120px) 0}
   .gal__track{flex-wrap:wrap;justify-content:center}
 }
 
-.hero,.story,.coll,.gal,.custom{scroll-margin-top:92px}
+.hero,.coll,.gal,.custom{scroll-margin-top:92px}
 
 /* ===========================================================
    PÉTALES DE SAKURA + 3D
@@ -322,60 +299,6 @@ h1,h2,h3{margin:0;font-weight:400}
 .petals{
   position:fixed;inset:0;z-index:6;pointer-events:none;width:100%;height:100%;
 }
-
-/* ---------- vue 360 ---------- */
-.spin{position:relative;padding:clamp(70px,12vh,140px) var(--pad) clamp(80px,14vh,160px);
-  background:radial-gradient(70% 60% at 50% 40%,#131317,#000 75%);overflow:hidden}
-.spin__head{text-align:center;margin-bottom:clamp(26px,4vh,46px)}
-.spin__head .h-display{font-size:clamp(2.4rem,7.5vw,6rem)}
-.spin__tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:clamp(20px,3vh,34px)}
-.spin__tabs button{
-  background:transparent;border:1px solid var(--line);color:var(--mute);font-family:inherit;
-  font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;padding:.85em 1.6em;cursor:pointer;
-  transition:all .35s var(--ease);
-}
-.spin__tabs button:hover{border-color:#fff;color:#fff}
-.spin__tabs button[aria-selected="true"]{background:#fff;color:#000;border-color:#fff}
-
-.spin__stage{
-  position:relative;height:clamp(360px,58vh,600px);
-  perspective:1400px;perspective-origin:50% 45%;
-  cursor:grab;touch-action:pan-y;outline:none;
-}
-.spin__stage.is-grab{cursor:grabbing}
-.spin__stage:focus-visible{outline:1px solid var(--pink);outline-offset:14px}
-.spin__ring{
-  position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
-}
-.spin__gl{position:absolute;inset:0;width:100%;height:100%;display:none;touch-action:pan-y}
-.has-3d .spin__gl{display:block}
-.has-3d .spin__ring,.has-3d .spin__floor{display:none}
-.spin__face{
-  position:absolute;top:50%;left:50%;margin:0;transform:translate(-50%,-50%);
-  width:clamp(190px,26vw,300px);height:clamp(260px,38vw,420px);
-  transform-origin:50% 50%;backface-visibility:hidden;overflow:hidden;
-  border:1px solid rgba(255,255,255,.1);background:#000;
-  box-shadow:0 30px 70px rgba(0,0,0,.65);
-}
-.spin__face img{width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none}
-.spin__face figcaption{
-  position:absolute;left:0;right:0;bottom:0;padding:.7em .9em;
-  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;
-  background:linear-gradient(transparent,rgba(0,0,0,.85));
-}
-.spin__floor{
-  position:absolute;left:50%;bottom:4%;transform:translateX(-50%);
-  width:min(520px,80%);height:90px;
-  background:radial-gradient(50% 50% at 50% 50%,rgba(255,45,120,.3),transparent 70%);
-  filter:blur(14px);
-}
-.spin__ctrl{display:flex;align-items:center;justify-content:center;gap:1.4rem;margin-top:clamp(18px,3vh,32px)}
-.spin__arrow{
-  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;
-  color:#fff;font-size:1rem;cursor:pointer;transition:all .3s var(--ease);font-family:inherit;
-}
-.spin__arrow:hover{border-color:var(--pink);color:var(--pink);transform:scale(1.08)}
-.spin__hint{margin:0;font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
 
 /* ---------- inclinaison 3D des cartes produit ---------- */
 .coll__grid{perspective:1200px}
@@ -385,8 +308,4 @@ h1,h2,h3{margin:0;font-weight:400}
 
 @media (prefers-reduced-motion:reduce){
   .petals{display:none}
-  .spin__stage{perspective:none;height:auto}
-  .spin__ring{position:static;transform:none!important;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
-  .spin__face{position:static;transform:none!important;width:clamp(180px,30vw,260px)}
-  .spin__floor,.spin__ctrl{display:none}
-}
+        }

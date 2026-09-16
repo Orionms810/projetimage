@@ -83,30 +83,7 @@
     mq.style.transform = `translate3d(${mqX}px,0,0)`;
   };
 
-  /* ---------- 6. Story épinglée ---------- */
-  const story = $('#story'), stIdx = $('#storyIdx');
-  const heads = $$('.story__copy h2'), shots = $$('.story__img');
-  heads.forEach(h => {
-    h.innerHTML = h.textContent.trim().split(' ')
-      .map(w => `<span class="w">${w}</span>`).join(' ');
-  });
-  heads[0]?.classList.add('is-on');
-
-  const runStory = () => {
-    if (!story || reduced) return;
-    const r = story.getBoundingClientRect();
-    const p = clamp(-r.top / (story.offsetHeight - innerHeight));
-    const step = Math.min(heads.length - 1, Math.floor(p * heads.length));
-    stIdx.textContent = String(step + 1).padStart(2, '0');
-    heads.forEach((h, i) => h.classList.toggle('is-on', i === step));
-    shots.forEach((s, i) => s.classList.toggle('is-active', i === step));
-
-    const local = clamp(p * heads.length - step);
-    const words = $$('.w', heads[step]);
-    words.forEach((w, i) => w.classList.toggle('is-lit', local * words.length * 1.35 > i));
-  };
-
-  /* ---------- 7. Galerie horizontale ---------- */
+  /* ---------- 6. Galerie horizontale ---------- */
   const gal = $('#gal'), track = $('#galTrack');
   const runGal = () => {
     if (!gal || reduced) return;
@@ -116,23 +93,23 @@
     track.style.transform = `translate3d(${-p * dist}px,0,0)`;
   };
 
-  /* ---------- 8. Boucle de rendu ---------- */
+  /* ---------- 7. Boucle de rendu ---------- */
   const frame = () => {
     const y = scrollY;
     vel = lerp(vel, y - (frame.prev ?? y), .2); frame.prev = y;
-    header(y); parallax(); runStory(); runGal(); marquee(); renderSpin(); petalsTick();
+    header(y); parallax(); runGal(); marquee(); petalsTick();
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  addEventListener('resize', () => { runStory(); runGal(); }, { passive: true });
+  addEventListener('resize', runGal, { passive: true });
 
-  /* ---------- 9. Révélations ---------- */
+  /* ---------- 8. Révélations ---------- */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
   }), { threshold: .18 });
   $$('[data-reveal]').forEach(el => io.observe(el));
 
-  /* ---------- 10. Tailles + panier ---------- */
+  /* ---------- 9. Tailles + panier ---------- */
   const bag = $('#bag'), bagTxt = $('#bagTxt');
   let count = 0, toast;
   $$('.card__sizes').forEach(g => g.addEventListener('click', e => {
@@ -154,7 +131,7 @@
     toast = setTimeout(() => bag.classList.remove('is-on'), 3200);
   }));
 
-  /* ---------- 11. Personnalisation du nom ---------- */
+  /* ---------- 10. Personnalisation du nom ---------- */
   const nameTrack = $('#nameTrack'), nameInput = $('#nameInput');
   let nx = 0;
   const paint = () => {
@@ -179,7 +156,7 @@
     } catch (_) { /* partage annulé */ }
   });
 
-  /* ---------- 12. Newsletter ---------- */
+  /* ---------- 11. Newsletter ---------- */
   const form = $('#newsForm'), msg = $('#newsMsg');
   const flash = t => { msg.textContent = t; clearTimeout(flash.t); flash.t = setTimeout(() => msg.textContent = '', 4000); };
   form?.addEventListener('submit', e => {
@@ -188,107 +165,7 @@
     form.reset();
   });
 
-  /* ---------- 13. Vue 360 : rotation 3D à la main ---------- */
-  const PRODUCTS = {
-    hoodie: [
-      ['assets/hoodie_front.jpg', 'Face'],
-      ['assets/detail1.jpg',      'Capuche'],
-      ['assets/hoodie_back.jpg',  'Dos'],
-      ['assets/detail2.jpg',      'Imprimé éclair'],
-      ['assets/detail3.jpg',      'Col brodé']
-    ],
-    tee: [
-      ['assets/tee_front.jpg',    'Face'],
-      ['assets/detail2.jpg',      'Imprimé éclair'],
-      ['assets/tee_back.jpg',     'Dos — 桜の力'],
-      ['assets/detail3.jpg',      'Col brodé'],
-      ['assets/detail1.jpg',      'Tissu']
-    ]
-  };
-  const stage = $('#spinStage'), ring = $('#spinRing'), hint = $('#spinHint');
-  let faces = [], radius = 0, angle = 0, spinV = 0, target = null, dragging = false, touched = false;
-
-  const layout = () => {
-    if (!faces.length) return;
-    const w = faces[0].offsetWidth, n = faces.length;
-    radius = (w / 2) / Math.tan(Math.PI / n) * 1.08;
-  };
-  const build = key => {
-    ring.innerHTML = '';
-    faces = PRODUCTS[key].map(([src, cap]) => {
-      const f = document.createElement('figure');
-      f.className = 'spin__face';
-      f.innerHTML = `<img src="${src}" alt="${cap}" draggable="false"><figcaption>${cap}</figcaption>`;
-      ring.appendChild(f);
-      return f;
-    });
-    layout();
-    angle = 0; spinV = 0; target = null;
-  };
-  const renderSpin = () => {
-    if (!faces.length || reduced || window.__unseen3d) return;
-    if (target !== null && !dragging) {
-      angle = lerp(angle, target, .12);
-      if (Math.abs(target - angle) < .15) { angle = target; target = null; }
-    } else if (!dragging) {
-      if (Math.abs(spinV) > .02) { angle += spinV; spinV *= .94; }
-      else { spinV = 0; if (!touched) angle += .09; }   // rotation douce tant qu'on n'y a pas touché
-    }
-    const n = faces.length, step = 360 / n;
-    ring.style.transform = `translateZ(${-radius * .55}px) rotateY(${angle}deg)`;
-    faces.forEach((f, i) => {
-      const c = Math.cos((angle + i * step) * Math.PI / 180);
-      f.style.transform = `translate(-50%,-50%) rotateY(${i * step}deg) translateZ(${radius}px)`;
-      f.style.filter = `brightness(${(.42 + .58 * Math.max(0, c)).toFixed(3)})`;
-      f.style.opacity = (.35 + .65 * Math.max(0, c)).toFixed(3);
-    });
-  };
-
-  if (stage) {
-    build('hoodie');
-    addEventListener('resize', layout, { passive: true });
-
-    let lastX = 0;
-    const grab = e => {
-      if (window.__unseen3d) return;
-      dragging = true; touched = true; target = null; lastX = e.clientX;
-      stage.classList.add('is-grab'); stage.setPointerCapture?.(e.pointerId);
-      if (hint) hint.textContent = 'Continue de glisser';
-    };
-    const move = e => {
-      if (!dragging) return;
-      const dx = e.clientX - lastX; lastX = e.clientX;
-      angle += dx * .38; spinV = dx * .38;
-    };
-    const drop = () => { dragging = false; stage.classList.remove('is-grab'); };
-    stage.addEventListener('pointerdown', grab);
-    stage.addEventListener('pointermove', move);
-    stage.addEventListener('pointerup', drop);
-    stage.addEventListener('pointercancel', drop);
-    stage.addEventListener('pointerleave', drop);
-
-    const nudge = dir => {
-      if (window.__unseen3d) return;
-      touched = true; spinV = 0;
-      const step = 360 / Math.max(faces.length, 1);
-      target = Math.round(angle / step) * step + dir * step;
-    };
-    $('#spinLeft') ?.addEventListener('click', () => nudge(1));
-    $('#spinRight')?.addEventListener('click', () => nudge(-1));
-    stage.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft')  { nudge(1);  e.preventDefault(); }
-      if (e.key === 'ArrowRight') { nudge(-1); e.preventDefault(); }
-    });
-
-    $$('.spin__tabs button').forEach(tab => tab.addEventListener('click', () => {
-      if (window.__unseen3d) return;
-      $$('.spin__tabs button').forEach(t => t.setAttribute('aria-selected', String(t === tab)));
-      build(tab.dataset.prod);
-      spinV = 14; touched = true;                 // petit élan à chaque changement de pièce
-    }));
-  }
-
-  /* ---------- 14. Pétales de sakura ---------- */
+  /* ---------- 12. Pétales de sakura ---------- */
   const cvs = $('#petals'), ctx = cvs?.getContext('2d');
   let petals = [], cw = 0, ch = 0;
 
@@ -367,7 +244,7 @@
     }
   };
 
-  /* ---------- 15. Inclinaison 3D des cartes + du logo ---------- */
+  /* ---------- 13. Inclinaison 3D des cartes + du logo ---------- */
   if (!reduced && matchMedia('(hover:hover)').matches) {
     $$('.card').forEach(card => {
       const media = $('.card__media', card);

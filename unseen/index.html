@@ -40,7 +40,6 @@
   </a>
   <nav class="hdr__nav">
     <a href="#collection">Collection</a>
-    <a href="#story">Histoire</a>
     <a href="#custom">Personnaliser</a>
   </nav>
   <a href="#collection" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
@@ -70,23 +69,6 @@
   <div class="marquee__track" id="marquee1">
     <span>UNSEEN <i>✦</i> 見えない力 <i>✦</i> STRENGTH BEYOND SIGHT <i>✦</i> 桜の力 <i>✦</i> </span>
     <span>UNSEEN <i>✦</i> 見えない力 <i>✦</i> STRENGTH BEYOND SIGHT <i>✦</i> 桜の力 <i>✦</i> </span>
-  </div>
-</section>
-
-<!-- ░░ STORY : PINNED SCROLL ░░ -->
-<section class="story" id="story">
-  <div class="story__pin">
-    <div class="story__media">
-      <img loading="lazy" decoding="async" src="assets/hoodie_back.jpg" alt="Hoodie UNSEEN vue dos" class="story__img is-active" data-step="0">
-      <img loading="lazy" decoding="async" src="assets/hoodie_front.jpg" alt="Hoodie UNSEEN vue face" class="story__img" data-step="1">
-      <img loading="lazy" decoding="async" src="assets/detail2.jpg" alt="Détail de l'imprimé éclair et sakura" class="story__img" data-step="2">
-    </div>
-    <div class="story__copy">
-      <p class="story__idx"><span id="storyIdx">01</span> / 03</p>
-      <h2 class="reveal-words" data-step="0">L'éclair traverse la fleur. Ce qui casse fait pousser.</h2>
-      <h2 class="reveal-words" data-step="1">Coton lourd 420g, coupe oversize, imprimé all-over édition limitée.</h2>
-      <h2 class="reveal-words" data-step="2">Chaque pétale est imprimé à la main. Aucune pièce n'est identique.</h2>
-    </div>
   </div>
 </section>
 
@@ -151,39 +133,13 @@
   </div>
 </section>
 
-<!-- ░░ VUE 360 — ROTATION 3D ░░ -->
-<section class="spin" id="spin">
-  <header class="spin__head">
-    <p class="eyebrow">03 — Vue 360</p>
-    <h2 class="h-display">TOURNE<br>LA PIÈCE</h2>
-  </header>
-
-  <div class="spin__tabs" role="tablist" aria-label="Choisir une pièce">
-    <button type="button" role="tab" aria-selected="true"  data-prod="hoodie">Hoodie</button>
-    <button type="button" role="tab" aria-selected="false" data-prod="tee">T-shirt compressé</button>
-  </div>
-
-  <div class="spin__stage" id="spinStage" tabindex="0" role="application"
-       aria-label="Vue 360 : glisse ou utilise les flèches du clavier pour faire tourner la pièce">
-    <canvas class="spin__gl" id="spinCanvas"></canvas>
-    <div class="spin__ring" id="spinRing"></div>
-    <div class="spin__floor" aria-hidden="true"></div>
-  </div>
-
-  <div class="spin__ctrl">
-    <button type="button" class="spin__arrow" id="spinLeft" aria-label="Tourner vers la gauche">←</button>
-    <p class="spin__hint" id="spinHint">Glisse pour faire tourner</p>
-    <button type="button" class="spin__arrow" id="spinRight" aria-label="Tourner vers la droite">→</button>
-  </div>
-</section>
-
 
 <!-- ░░ HORIZONTAL GALLERY ░░ -->
 <section class="gal" id="gal">
   <div class="gal__pin">
     <div class="gal__track" id="galTrack">
       <div class="gal__item gal__item--txt">
-        <p class="eyebrow">04 — Les détails</p>
+        <p class="eyebrow">03 — Les détails</p>
         <p class="gal__lead">Regarde de plus près.<br><span>近くで見て</span></p>
       </div>
       <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/detail1.jpg" alt="Cordon de capuche brodé"><figcaption>Cordon &amp; capuche</figcaption></figure>
@@ -217,7 +173,7 @@
   </form>
   <p class="ftr__msg" id="newsMsg" role="status"></p>
   <nav class="ftr__nav">
-    <a href="#collection">Collection</a><a href="#story">Histoire</a>
+    <a href="#collection">Collection</a><a href="#gal">Détails</a>
     <a href="#custom">Personnaliser</a><a href="#top">Haut de page</a>
   </nav>
   <p class="ftr__legal">© 2026 UNSEEN APPAREL <i>/</i> TERMS <i>/</i> PRIVACY <i>/</i> COOKIES</p>
@@ -228,6 +184,5 @@
 </div>
 
 <script src="js/main.js"></script>
-<script type="module" src="js/garment3d.js"></script>
 </body>
 </html>
