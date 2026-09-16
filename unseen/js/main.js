@@ -261,16 +261,11 @@
     montrer(i);
   });
 
-  /* ---------- 12. Personnalisation du nom ---------- */
-  const nameTrack = $('#nameTrack'), nameInput = $('#nameInput');
-  let nx = 0;
-  const paint = () => {
-    const v = (nameInput.value || 'UNSEEN').toUpperCase();
-    nameTrack.innerHTML = Array.from({ length: 8 }, () => `<span>${v}</span>`).join('');
-  };
+  /* ---------- 12. Bandeau UNSEEN ---------- */
+  const nameTrack = $('#nameTrack');
   if (nameTrack) {
-    paint();
-    nameInput.addEventListener('input', paint);
+    nameTrack.innerHTML = Array.from({ length: 8 }, () => '<span>UNSEEN</span>').join('');
+    let nx = 0;
     if (!reduced) (function slide() {
       const w = nameTrack.scrollWidth / 2 || 1;
       nx = (nx - 1.1) % w;
@@ -278,21 +273,6 @@
       requestAnimationFrame(slide);
     })();
   }
-  const shareBtn = $('#shareBtn');
-  shareBtn?.addEventListener('click', async () => {
-    const txt = `${(nameInput.value || 'UNSEEN').toUpperCase()} — UNSEEN · Strength Beyond Sight`;
-    const say = t => {
-      const old = shareBtn.dataset.label || shareBtn.textContent;
-      shareBtn.dataset.label = old;
-      shareBtn.textContent = t;
-      clearTimeout(shareBtn.t);
-      shareBtn.t = setTimeout(() => { shareBtn.textContent = old; }, 2200);
-    };
-    try {
-      if (navigator.share) { await navigator.share({ title: 'UNSEEN', text: txt, url: location.href }); say('Partagé'); }
-      else { await navigator.clipboard.writeText(`${txt} ${location.href}`); say('Lien copié'); }
-    } catch (_) { say('Partage annulé'); }
-  });
 
   /* ---------- 13. Newsletter ---------- */
   const form = $('#newsForm'), msg = $('#newsMsg');

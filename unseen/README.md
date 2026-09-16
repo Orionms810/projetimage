@@ -36,7 +36,9 @@ unseen/
 ## Pages
 
 - **`index.html`** — l'accueil et ses sections ci-dessous
-- **`boutique.html`** — toute la collection, avec stock et accès aux fiches
+- **`boutique.html`** — toute la collection, avec recherche, stock et accès aux fiches.
+  La recherche ignore la casse et les accents, cherche d'abord dans les noms puis
+  élargit aux descriptions si rien ne sort, et accepte `?q=hoodie` dans l'URL
 - **`produit.html?ref=hoodie`** ou **`?ref=tee`** — fiche produit : visuels avec flèches et
   vignettes, description, caractéristiques, stock par taille, quantité, ajout au panier
 
@@ -53,7 +55,7 @@ tailles épuisées et plafonne la quantité au stock disponible.
    cartes générées depuis `js/produits.js`, flèches et vignettes pour
    parcourir les quatre vues, clic sur le visuel pour ouvrir la fiche
 5. **Détails** — carrousel horizontal : flèches cliquables, glisser, flèches du clavier
-6. **Personnalisation** — le visiteur tape son nom, il s'affiche en marquee géant (bouton Partager)
+6. **Signature** — le mot UNSEEN en très grand, en défilement continu
 7. **Footer** — newsletter, navigation, mentions
 
 Des pétales et fleurs de sakura dessinés au canvas volent en permanence par-dessus la page,
@@ -78,7 +80,7 @@ avec un effet de profondeur (taille, vitesse et opacité varient) et un vent qui
   vignettes que pour les fichiers réellement présents
 - **Imprimé de fond** : `assets/print.jpg`
 - **Textes de l'histoire** : les trois `<h2 class="reveal-words">` de la section `#story`
-- **Densité des pétales** : `const want = cw < 700 ? 18 : 36;` dans le module 12
+- **Densité des pétales** : `const want = cw < 700 ? 18 : 36;` dans le module 13
 
 ## Notes techniques
 

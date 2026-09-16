@@ -30,7 +30,6 @@
   <nav class="hdr__nav">
     <a href="index.html">Home</a>
     <a href="boutique.html">Boutique</a>
-    <a href="index.html#custom">Personnaliser</a>
   </nav>
   <div class="hdr__actions">
     <a href="boutique.html" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
@@ -52,7 +51,19 @@
       qui déchire les sakura sur noir, ou les branches à l'encre noire sur blanc.
       Série numérotée, produite une seule fois — quand c'est parti, c'est parti.</p>
   </header>
+  <div class="shop__tools">
+    <div class="search">
+      <span class="search__ico" aria-hidden="true">⌕</span>
+      <input type="search" id="shopSearch" placeholder="Chercher une pièce, un coloris…"
+             aria-label="Chercher dans la collection" autocomplete="off" spellcheck="false">
+      <button class="search__clear" type="button" id="shopClear" aria-label="Effacer la recherche" hidden>&#215;</button>
+    </div>
+    <p class="shop__count" id="shopCount" role="status"></p>
+  </div>
+
   <div class="shop__grid" id="shopGrid"></div>
+  <p class="shop__vide" id="shopVide" hidden>Aucune pièce ne correspond.<br>
+    <span>Essaie « hoodie », « blanc » ou « compressé ».</span></p>
   <p class="shop__note">Livraison offerte dès 100 € · Retours sous 30 jours · Expédié sous 48 h</p>
 </main>
 
@@ -68,7 +79,7 @@
   <p class="ftr__msg" id="newsMsg" role="status"></p>
   <nav class="ftr__nav">
     <a href="index.html">Home</a><a href="boutique.html">Boutique</a><a href="index.html#collection">Collection</a><a href="index.html#gal">Détails</a>
-    <a href="index.html#custom">Personnaliser</a><a href="index.html">Haut de page</a>
+    <a href="index.html">Haut de page</a>
   </nav>
   <p class="ftr__legal">© 2026 UNSEEN APPAREL <i>/</i> TERMS <i>/</i> PRIVACY <i>/</i> COOKIES</p>
 </footer>

@@ -586,3 +586,26 @@ h1,h2,h3{margin:0;font-weight:400}
   .cube__face{position:relative;transform:none!important;margin-bottom:10px}
   .cube__stage{perspective:none}
 }
+
+/* ---------- recherche en boutique ---------- */
+.shop__tools{display:flex;align-items:center;justify-content:space-between;gap:1.4rem;
+  flex-wrap:wrap;margin-bottom:clamp(26px,4vh,44px)}
+.search{position:relative;flex:1 1 320px;max-width:460px}
+.search__ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  color:var(--mute);font-size:1.1rem;pointer-events:none}
+.search input{
+  width:100%;background:rgba(255,255,255,.03);border:1px solid var(--line);color:#fff;
+  font-family:inherit;font-size:.82rem;letter-spacing:.04em;padding:1em 2.6em 1em 3em;
+  outline:none;border-radius:2px;transition:border-color .3s var(--ease),background .3s;
+  -webkit-appearance:none;appearance:none;
+}
+.search input::placeholder{color:rgba(255,255,255,.35)}
+.search input::-webkit-search-cancel-button{display:none}
+.search input:focus{border-color:var(--pink);background:rgba(255,255,255,.05)}
+.search__clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border:0;background:none;color:var(--mute);font-size:1.2rem;
+  cursor:pointer;transition:color .25s}
+.search__clear:hover{color:var(--pink)}
+.shop__count{margin:0;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.shop__vide{margin:clamp(40px,7vh,80px) 0 0;text-align:center;color:var(--mute);line-height:1.9}
+.shop__vide span{font-size:.82rem;color:rgba(255,255,255,.4)}

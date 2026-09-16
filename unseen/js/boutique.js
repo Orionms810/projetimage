@@ -42,10 +42,59 @@
       </article>`;
   };
 
-  grille.innerHTML = Object.values(window.UNSEEN.produits).map(carte).join('');
+  const produits = Object.values(window.UNSEEN.produits);
+  grille.innerHTML = produits.map(carte).join('');
 
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
   }), { threshold: .15 });
   [...grille.children].forEach(c => io.observe(c));
+
+  /* ---------- recherche ---------- */
+  const champ = document.getElementById('shopSearch'),
+        vider = document.getElementById('shopClear'),
+        compte = document.getElementById('shopCount'),
+        vide = document.getElementById('shopVide');
+
+  /* accents et casse ignorés : « compresse » trouve « compressé » */
+  const plat = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  /* deux niveaux : on cherche d'abord dans les noms, et on n'élargit au texte
+     que si rien ne sort — sinon « hoodie » remonterait un t-shirt dont la
+     description cite le hoodie */
+  const titres = produits.map(p => plat([p.nom, p.court, p.ref, p.badge,
+                                         window.UNSEEN.collection].join(' ')));
+  const textes = produits.map((p, i) => titres[i] + ' ' + plat([
+    p.resume, p.description, ...p.specs.map(s => s.join(' '))].join(' ')));
+
+  const filtrer = () => {
+    const q = plat(champ.value.trim());
+    const mots = q ? q.split(/\s+/) : [];
+    /* début de mot plutôt que sous-chaîne : « tee » ne doit pas trouver
+       « édition limitée » une fois les accents retirés */
+    const motifs = mots.map(m => new RegExp('\\b' + m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    const colle = liste => liste.map(t => motifs.every(r => r.test(t)));
+    let trouve = colle(titres);
+    if (mots.length && !trouve.some(Boolean)) trouve = colle(textes);
+    let n = 0;
+    [...grille.children].forEach((carte, i) => {
+      carte.hidden = !trouve[i];
+      if (trouve[i]) n++;
+    });
+    vider.hidden = !champ.value;
+    vide.hidden = n > 0;
+    compte.textContent = mots.length
+      ? `${n} pièce${n > 1 ? 's' : ''} sur ${produits.length}`
+      : `${produits.length} pièces`;
+  };
+
+  champ.addEventListener('input', filtrer);
+  champ.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { champ.value = ''; filtrer(); }
+  });
+  vider.addEventListener('click', () => { champ.value = ''; filtrer(); champ.focus(); });
+
+  /* ?q=hoodie dans l'URL pré-remplit la recherche */
+  const q0 = new URLSearchParams(location.search).get('q');
+  if (q0) champ.value = q0;
+  filtrer();
 })();
