@@ -219,10 +219,24 @@ h1,h2,h3{margin:0;font-weight:400}
 .card.is-in{opacity:1;transform:none}
 .card__media{position:relative;overflow:hidden;background:#0a0a0c;aspect-ratio:4/5}
 .card__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  transition:opacity .7s var(--ease),transform 1.2s var(--ease)}
-.card__b{opacity:0}
-.card:hover .card__a{opacity:0;transform:scale(1.05)}
-.card:hover .card__b{opacity:1;transform:scale(1.05)}
+  transition:opacity .35s var(--ease),transform 1.2s var(--ease)}
+.card:hover .card__main{transform:scale(1.04)}
+.card__main.is-swap{opacity:0}
+
+.card__views{display:flex;gap:8px;margin:.9rem 0 0}
+.card__views button{
+  position:relative;flex:0 0 auto;width:54px;height:66px;padding:0;cursor:pointer;
+  border:1px solid var(--line);background:#0a0a0c;overflow:hidden;
+  transition:border-color .3s var(--ease),transform .3s var(--ease);
+}
+.card__views button img{width:100%;height:100%;object-fit:cover;display:block}
+.card__views button:hover{border-color:rgba(255,255,255,.5);transform:translateY(-2px)}
+.card__views button[aria-pressed="true"]{border-color:var(--pink)}
+.card__views button:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.card__views button span{
+  position:absolute;left:0;right:0;bottom:0;padding:.25em 0;font-size:.44rem;
+  letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.7);
+}
 .card__badge{position:absolute;top:14px;left:14px;z-index:2;font-size:.52rem;letter-spacing:.22em;
   text-transform:uppercase;padding:.5em .9em;border:1px solid var(--line);background:rgba(0,0,0,.55);backdrop-filter:blur(6px)}
 .card__info{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:1.3rem 0 .9rem}

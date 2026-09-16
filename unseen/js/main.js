@@ -256,7 +256,7 @@
       return;
     }
     const name = btn.dataset.name, price = +btn.dataset.price, s = size.textContent;
-    const img = $('.card__a', card).getAttribute('src');
+    const img = $('.card__main', card).getAttribute('src');
     const found = items.find(i => i.name === name && i.size === s);
     found ? found.qty++ : items.push({ name, size: s, price, img, qty: 1 });
     drawCart();
@@ -268,7 +268,44 @@
 
   drawCart();
 
-  /* ---------- 11. Personnalisation du nom ---------- */
+  /* ---------- 11. Vues produit (vignettes cliquables) ---------- */
+  const exists = src => new Promise(res => {
+    const im = new Image();
+    im.onload = () => res(true);
+    im.onerror = () => res(false);
+    im.src = src;
+  });
+
+  $$('.card__views').forEach(async box => {
+    const main = $('.card__main', box.closest('.card'));
+    const vues = box.dataset.views.split(',').map(v => {
+      const [nom, label] = v.split(':');
+      return { src: `assets/${nom}.jpg`, label };
+    });
+    const dispo = [];
+    for (const v of vues) if (await exists(v.src)) dispo.push(v);
+    if (dispo.length < 2) return;                 // une seule vue : pas de sélecteur
+
+    dispo.forEach(v => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(v.src === main.getAttribute('src')));
+      b.setAttribute('aria-label', `Voir : ${v.label}`);
+      b.innerHTML = `<img src="${v.src}" alt=""><span>${v.label}</span>`;
+      b.addEventListener('click', () => {
+        if (main.getAttribute('src') === v.src) return;
+        $$('button', box).forEach(x => x.setAttribute('aria-pressed', 'false'));
+        b.setAttribute('aria-pressed', 'true');
+        main.classList.add('is-swap');
+        const pre = new Image();
+        pre.onload = () => { main.src = v.src; main.classList.remove('is-swap'); };
+        pre.src = v.src;
+      });
+      box.appendChild(b);
+    });
+  });
+
+  /* ---------- 12. Personnalisation du nom ---------- */
   const nameTrack = $('#nameTrack'), nameInput = $('#nameInput');
   let nx = 0;
   const paint = () => {
@@ -301,7 +338,7 @@
     } catch (_) { say('Partage annulé'); }
   });
 
-  /* ---------- 12. Newsletter ---------- */
+  /* ---------- 13. Newsletter ---------- */
   const form = $('#newsForm'), msg = $('#newsMsg');
   const flash = t => { msg.textContent = t; clearTimeout(flash.t); flash.t = setTimeout(() => msg.textContent = '', 4000); };
   form?.addEventListener('submit', e => {
@@ -310,7 +347,7 @@
     form.reset();
   });
 
-  /* ---------- 13. Pétales de sakura ---------- */
+  /* ---------- 14. Pétales de sakura ---------- */
   const cvs = $('#petals'), ctx = cvs?.getContext('2d');
   let petals = [], cw = 0, ch = 0;
 
@@ -389,7 +426,7 @@
     }
   };
 
-  /* ---------- 14. Inclinaison 3D des cartes + du logo ---------- */
+  /* ---------- 15. Inclinaison 3D des cartes + du logo ---------- */
   if (!reduced && matchMedia('(hover:hover)').matches) {
     $$('.card').forEach(card => {
       const media = $('.card__media', card);
