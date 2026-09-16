@@ -226,7 +226,7 @@
     angle = 0; spinV = 0; target = null;
   };
   const renderSpin = () => {
-    if (!faces.length || reduced) return;
+    if (!faces.length || reduced || window.__unseen3d) return;
     if (target !== null && !dragging) {
       angle = lerp(angle, target, .12);
       if (Math.abs(target - angle) < .15) { angle = target; target = null; }
@@ -250,6 +250,7 @@
 
     let lastX = 0;
     const grab = e => {
+      if (window.__unseen3d) return;
       dragging = true; touched = true; target = null; lastX = e.clientX;
       stage.classList.add('is-grab'); stage.setPointerCapture?.(e.pointerId);
       if (hint) hint.textContent = 'Continue de glisser';
@@ -267,6 +268,7 @@
     stage.addEventListener('pointerleave', drop);
 
     const nudge = dir => {
+      if (window.__unseen3d) return;
       touched = true; spinV = 0;
       const step = 360 / Math.max(faces.length, 1);
       target = Math.round(angle / step) * step + dir * step;
@@ -279,6 +281,7 @@
     });
 
     $$('.spin__tabs button').forEach(tab => tab.addEventListener('click', () => {
+      if (window.__unseen3d) return;
       $$('.spin__tabs button').forEach(t => t.setAttribute('aria-selected', String(t === tab)));
       build(tab.dataset.prod);
       spinV = 14; touched = true;                 // petit élan à chaque changement de pièce

@@ -108,7 +108,7 @@
       <h2 class="h-display">JAPANESE<br>BLOSSOM</h2>
     </div>
     <div class="coll__note">
-      <p>Deux pièces. Un même imprimé all-over : l'éclair blanc qui déchire les sakura.
+      <p>Deux pièces. Un même imprimé all-over : l'éclair doré qui déchire les sakura.
          Série numérotée, produite une seule fois.</p>
       <p class="coll__stock"><span></span> 2 pièces disponibles — édition 2026</p>
     </div>
@@ -165,6 +165,7 @@
 
   <div class="spin__stage" id="spinStage" tabindex="0" role="application"
        aria-label="Vue 360 : glisse ou utilise les flèches du clavier pour faire tourner la pièce">
+    <canvas class="spin__gl" id="spinCanvas"></canvas>
     <div class="spin__ring" id="spinRing"></div>
     <div class="spin__floor" aria-hidden="true"></div>
   </div>
@@ -227,5 +228,6 @@
 </div>
 
 <script src="js/main.js"></script>
+<script type="module" src="js/garment3d.js"></script>
 </body>
 </html>
