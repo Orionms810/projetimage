@@ -44,7 +44,12 @@ avec un effet de profondeur (taille, vitesse et opacité varient) et un vent qui
 
 - **Couleurs / typo** : variables `:root` en haut de `css/style.css` (`--pink`, `--black`, …)
 - **Prix, noms, tailles** : directement dans les blocs `<article class="card">` de `index.html`
-- **Visuels** : remplacer les fichiers de `assets/` en gardant les mêmes noms
+- **Visuels** : `python3 tools/import-planche.py ta-planche.png` découpe une planche de
+  8 vues sur fond noir, passe le blanc de l'imprimé en jaune et écrit les fichiers
+  attendus dans `assets/`. La position des logos à préserver est déclarée dans `LOGOS`,
+  en proportions de la vue. L'option `--tel-quel` garde les couleurs d'origine.
+- **Vues d'une pièce** : l'attribut `data-views` de chaque carte ; le script ne crée les
+  vignettes que pour les fichiers réellement présents
 - **Imprimé de fond** : `assets/print.jpg`
 - **Textes de l'histoire** : les trois `<h2 class="reveal-words">` de la section `#story`
 - **Densité des pétales** : `const want = cw < 700 ? 18 : 36;` dans le module 12
