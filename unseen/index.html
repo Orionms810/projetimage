@@ -28,6 +28,7 @@
 </div>
 
 <!-- ░░ GRAIN + VIGNETTE ░░ -->
+<div class="progress" id="progress" aria-hidden="true"><span></span></div>
 <canvas class="petals" id="petals" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
@@ -42,7 +43,12 @@
     <a href="#collection">Collection</a>
     <a href="#custom">Personnaliser</a>
   </nav>
-  <a href="#collection" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
+  <div class="hdr__actions">
+    <a href="#collection" class="btn btn--ghost hdr__cta" data-magnetic>Shop the collection</a>
+    <button class="bagbtn" type="button" id="bagOpen" aria-expanded="false" aria-controls="cart">
+      Panier <span class="bagbtn__n" id="bagCount">0</span>
+    </button>
+  </div>
 </header>
 
 <div class="legal">© 2026 UNSEEN <i>/</i> TERMS &amp; CONDITIONS <i>/</i> PRIVACY <i>/</i> COOKIES</div>
@@ -111,7 +117,7 @@
         <button type="button">S</button><button type="button">M</button>
         <button type="button">L</button><button type="button">XL</button>
       </div>
-      <button class="btn btn--fill card__add" type="button" data-name="Hoodie Japanese Blossom">Ajouter au panier</button>
+      <button class="btn btn--fill card__add" type="button" data-name="Hoodie — Japanese Blossom" data-price="89">Ajouter au panier</button>
     </article>
 
     <article class="card" data-reveal>
@@ -128,25 +134,37 @@
         <button type="button">S</button><button type="button">M</button>
         <button type="button">L</button><button type="button">XL</button>
       </div>
-      <button class="btn btn--fill card__add" type="button" data-name="T-shirt compressé Japanese Blossom">Ajouter au panier</button>
+      <button class="btn btn--fill card__add" type="button" data-name="T-shirt compressé — Japanese Blossom" data-price="45">Ajouter au panier</button>
     </article>
   </div>
 </section>
 
 
-<!-- ░░ HORIZONTAL GALLERY ░░ -->
+<!-- ░░ GALERIE HORIZONTALE ░░ -->
 <section class="gal" id="gal">
-  <div class="gal__pin">
-    <div class="gal__track" id="galTrack">
-      <div class="gal__item gal__item--txt">
-        <p class="eyebrow">03 — Les détails</p>
-        <p class="gal__lead">Regarde de plus près.<br><span>近くで見て</span></p>
-      </div>
-      <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/detail1.jpg" alt="Cordon de capuche brodé"><figcaption>Cordon &amp; capuche</figcaption></figure>
-      <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/detail2.jpg" alt="Imprimé éclair sakura"><figcaption>Imprimé éclair</figcaption></figure>
-      <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/detail3.jpg" alt="Col et étiquette UNSEEN"><figcaption>Col brodé UNSEEN</figcaption></figure>
-      <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/tee_back.jpg" alt="Dos du t-shirt compressé"><figcaption>桜の力 — dos</figcaption></figure>
+  <header class="gal__head">
+    <div>
+      <p class="eyebrow">03 — Les détails</p>
+      <h2 class="gal__lead">Regarde de plus près.<br><span>近くで見て</span></h2>
     </div>
+    <div class="gal__nav">
+      <button class="gal__arrow" type="button" id="galPrev" aria-label="Visuel précédent" aria-controls="galScroller">&#8592;</button>
+      <button class="gal__arrow" type="button" id="galNext" aria-label="Visuel suivant" aria-controls="galScroller">&#8594;</button>
+    </div>
+  </header>
+
+  <div class="gal__scroller" id="galScroller" tabindex="0" role="region"
+       aria-label="Galerie des détails — défilement horizontal">
+    <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/detail1.jpg" alt="Cordon de capuche brodé"><figcaption>Cordon &amp; capuche</figcaption></figure>
+    <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/detail2.jpg" alt="Imprimé éclair sakura"><figcaption>Imprimé éclair</figcaption></figure>
+    <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/detail3.jpg" alt="Col et étiquette UNSEEN"><figcaption>Col brodé UNSEEN</figcaption></figure>
+    <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/tee_back.jpg" alt="Dos du t-shirt compressé"><figcaption>桜の力 — dos</figcaption></figure>
+    <figure class="gal__item"><img loading="lazy" decoding="async" src="assets/hoodie_back.jpg" alt="Dos du hoodie"><figcaption>桜の力 — hoodie</figcaption></figure>
+  </div>
+
+  <div class="gal__foot">
+    <div class="gal__bar"><span id="galBar"></span></div>
+    <p class="gal__hint"><b>&#8592;</b> Défilement horizontal — glisse ou clique sur les flèches <b>&#8594;</b></p>
   </div>
 </section>
 
@@ -182,6 +200,22 @@
 <div class="bag" id="bag" role="status" aria-live="polite">
   <span class="bag__dot"></span><span id="bagTxt">Panier (0)</span>
 </div>
+
+<!-- ░░ PANIER ░░ -->
+<div class="cart__veil" id="cartVeil" hidden></div>
+<aside class="cart" id="cart" aria-labelledby="cartTitle" aria-hidden="true">
+  <header class="cart__head">
+    <h2 id="cartTitle">Ton panier</h2>
+    <button class="cart__close" type="button" id="cartClose" aria-label="Fermer le panier">&#215;</button>
+  </header>
+  <ul class="cart__list" id="cartList"></ul>
+  <p class="cart__empty" id="cartEmpty">Ton panier est vide.<br><span>桜の力 — choisis une pièce.</span></p>
+  <footer class="cart__foot">
+    <div class="cart__total"><span>Total</span><strong id="cartTotal">0 €</strong></div>
+    <button class="btn btn--fill cart__pay" type="button" id="cartPay">Commander</button>
+    <p class="cart__note" id="cartNote">Livraison offerte dès 100 € — retours 30 jours.</p>
+  </footer>
+</aside>
 
 <script src="js/main.js"></script>
 </body>

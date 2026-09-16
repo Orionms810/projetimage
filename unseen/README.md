@@ -33,7 +33,7 @@ unseen/
 2. **Marquee** — bandeau défilant dont la vitesse suit le scroll
 3. **Manifeste** — 強さは目に見えない, image en parallaxe
 4. **Collection** — hoodie 89 € / t-shirt compressé 45 €, survol face↔dos, tailles, ajout panier
-5. **Détails** — galerie à défilement horizontal piloté par le scroll vertical
+5. **Détails** — carrousel horizontal : flèches cliquables, glisser, flèches du clavier
 6. **Personnalisation** — le visiteur tape son nom, il s'affiche en marquee géant (bouton Partager)
 7. **Footer** — newsletter, navigation, mentions
 
@@ -55,6 +55,10 @@ avec un effet de profondeur (taille, vitesse et opacité varient) et un vent qui
 - Sections épinglées en `position: sticky` (pas de scroll-jacking, le scroll natif reste intact)
 - `prefers-reduced-motion` : animations et pins désactivés, la page devient un empilement classique
 - Responsive testé de 390 px à 1440 px, pas de débordement horizontal
+- Repères de défilement : barre de progression verticale en haut de page pour le scroll
+  vertical, flèches + barre de progression dédiées pour le défilement horizontal
 - Le blanc de l'imprimé a été remplacé par du jaune d'or ; les logos UNSEEN restent blancs
 - Les images sous la ligne de flottaison se chargent à la demande
-- Le panier est une démo front (compteur + toast) : brancher un vrai back-office ou Shopify pour vendre
+- Le panier est fonctionnel côté front : tiroir avec quantités, total, seuil de livraison
+  offerte et sauvegarde dans `localStorage`. Le bouton « Commander » reste à brancher sur
+  un vrai paiement (Shopify, Stripe…)

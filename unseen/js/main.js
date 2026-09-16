@@ -62,7 +62,15 @@
     lastY = y;
   };
 
-  /* ---------- 4. Parallaxe ---------- */
+  /* ---------- 4. Progression verticale de la page ---------- */
+  const pBar = $('#progress span');
+  const progressBar = y => {
+    if (!pBar) return;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    pBar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+  };
+
+  /* ---------- 5. Parallaxe ---------- */
   const paras = $$('[data-speed]').map(el => ({ el, sp: parseFloat(el.dataset.speed) }));
   const parallax = () => {
     if (reduced) return;
@@ -73,7 +81,7 @@
     });
   };
 
-  /* ---------- 5. Marquee (vitesse liée au scroll) ---------- */
+  /* ---------- 6. Marquee (vitesse liée au scroll) ---------- */
   const mq = $('#marquee1');
   let mqX = 0, vel = 0;
   const marquee = () => {
@@ -83,55 +91,184 @@
     mq.style.transform = `translate3d(${mqX}px,0,0)`;
   };
 
-  /* ---------- 6. Galerie horizontale ---------- */
-  const gal = $('#gal'), track = $('#galTrack');
-  const runGal = () => {
-    if (!gal || reduced) return;
-    const r = gal.getBoundingClientRect();
-    const p = clamp(-r.top / (gal.offsetHeight - innerHeight));
-    const dist = Math.max(0, track.scrollWidth - innerWidth + 40);
-    track.style.transform = `translate3d(${-p * dist}px,0,0)`;
-  };
+  /* ---------- 7. Galerie horizontale (flèches + glisser) ---------- */
+  const scroller = $('#galScroller'), galBar = $('#galBar'),
+        galPrev = $('#galPrev'), galNext = $('#galNext');
 
-  /* ---------- 7. Boucle de rendu ---------- */
+  const galStep = () => {
+    const item = $('.gal__item', scroller);
+    const gap = parseFloat(getComputedStyle(scroller).columnGap || 24) || 24;
+    return item ? item.offsetWidth + gap : scroller.clientWidth * .8;
+  };
+  const galSync = () => {
+    if (!scroller) return;
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    const p = max > 2 ? scroller.scrollLeft / max : 0;
+    const ratio = Math.min(1, scroller.clientWidth / Math.max(scroller.scrollWidth, 1));
+    galBar.style.width = (ratio * 100).toFixed(2) + '%';
+    galBar.style.transform = `translateX(${(ratio < 1 ? p * (1 - ratio) / ratio * 100 : 0).toFixed(2)}%)`;
+    galPrev.disabled = scroller.scrollLeft < 8;
+    galNext.disabled = scroller.scrollLeft > max - 8;
+  };
+  if (scroller) {
+    scroller.addEventListener('scroll', galSync, { passive: true });
+    addEventListener('resize', galSync, { passive: true });
+    galPrev.addEventListener('click', () => scroller.scrollBy({ left: -galStep(), behavior: 'smooth' }));
+    galNext.addEventListener('click', () => scroller.scrollBy({ left:  galStep(), behavior: 'smooth' }));
+    scroller.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { scroller.scrollBy({ left: -galStep(), behavior: 'smooth' }); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { scroller.scrollBy({ left:  galStep(), behavior: 'smooth' }); e.preventDefault(); }
+    });
+    /* glisser à la souris (le tactile utilise le défilement natif) */
+    let down = false, startX = 0, startL = 0, moved = 0;
+    scroller.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'touch') return;
+      down = true; moved = 0; startX = e.clientX; startL = scroller.scrollLeft;
+      scroller.classList.add('is-grab'); scroller.setPointerCapture?.(e.pointerId);
+    });
+    scroller.addEventListener('pointermove', e => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      scroller.scrollLeft = startL - dx;
+    });
+    const release = () => { down = false; scroller.classList.remove('is-grab'); };
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => scroller.addEventListener(ev, release));
+    scroller.addEventListener('click', e => { if (moved > 6) e.preventDefault(); }, true);
+    $$('img', scroller).forEach(im => im.addEventListener('load', galSync));
+    galSync();
+  }
+
+  /* ---------- 8. Boucle de rendu ---------- */
   const frame = () => {
     const y = scrollY;
     vel = lerp(vel, y - (frame.prev ?? y), .2); frame.prev = y;
-    header(y); parallax(); runGal(); marquee(); petalsTick();
+    header(y); parallax(); marquee(); petalsTick(); progressBar(y);
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  addEventListener('resize', runGal, { passive: true });
 
-  /* ---------- 8. Révélations ---------- */
+  /* ---------- 9. Révélations ---------- */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
   }), { threshold: .18 });
   $$('[data-reveal]').forEach(el => io.observe(el));
 
-  /* ---------- 9. Tailles + panier ---------- */
+  /* ---------- 10. Tailles, panier et tiroir ---------- */
   const bag = $('#bag'), bagTxt = $('#bagTxt');
-  let count = 0, toast;
+  const cart = $('#cart'), veil = $('#cartVeil'), cartList = $('#cartList'),
+        cartEmpty = $('#cartEmpty'), cartTotal = $('#cartTotal'), cartNote = $('#cartNote'),
+        bagBtn = $('#bagOpen'), bagCount = $('#bagCount');
+  const KEY = 'unseen.cart';
+  let items = [], toast;
+
+  try { items = JSON.parse(localStorage.getItem(KEY)) || []; } catch (_) { items = []; }
+  const store = () => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (_) {} };
+
+  const flashBag = txt => {
+    bagTxt.textContent = txt;
+    bag.classList.add('is-on');
+    clearTimeout(toast);
+    toast = setTimeout(() => bag.classList.remove('is-on'), 3000);
+  };
+
+  const drawCart = () => {
+    const n = items.reduce((s, i) => s + i.qty, 0);
+    const total = items.reduce((s, i) => s + i.qty * i.price, 0);
+    bagCount.textContent = n;
+    cartTotal.textContent = total + ' €';
+    cartEmpty.hidden = items.length > 0;
+    cartNote.textContent = items.length
+      ? (total >= 100 ? 'Livraison offerte — retours 30 jours.' : `Plus que ${100 - total} € pour la livraison offerte.`)
+      : 'Livraison offerte dès 100 € — retours 30 jours.';
+    cartList.innerHTML = items.map((i, k) => `
+      <li class="cart__row">
+        <img src="${i.img}" alt="">
+        <div>
+          <p class="cart__name">${i.name}</p>
+          <p class="cart__meta">Taille ${i.size}</p>
+          <div class="cart__qty">
+            <button type="button" data-act="minus" data-k="${k}" aria-label="Retirer un exemplaire">−</button>
+            <span>${i.qty}</span>
+            <button type="button" data-act="plus" data-k="${k}" aria-label="Ajouter un exemplaire">+</button>
+          </div>
+        </div>
+        <div class="cart__side">
+          <span class="cart__price">${i.qty * i.price} €</span>
+          <button class="cart__del" type="button" data-act="del" data-k="${k}">Retirer</button>
+        </div>
+      </li>`).join('');
+    store();
+  };
+
+  let lastFocus = null;
+  const openCart = () => {
+    lastFocus = document.activeElement;
+    veil.hidden = false;
+    requestAnimationFrame(() => veil.classList.add('is-on'));
+    cart.classList.add('is-open');
+    cart.setAttribute('aria-hidden', 'false');
+    bagBtn.setAttribute('aria-expanded', 'true');
+    $('#cartClose').focus();
+  };
+  const closeCart = () => {
+    veil.classList.remove('is-on');
+    setTimeout(() => { veil.hidden = true; }, 450);
+    cart.classList.remove('is-open');
+    cart.setAttribute('aria-hidden', 'true');
+    bagBtn.setAttribute('aria-expanded', 'false');
+    lastFocus?.focus();
+  };
+  bagBtn.addEventListener('click', () => cart.classList.contains('is-open') ? closeCart() : openCart());
+  $('#cartClose').addEventListener('click', closeCart);
+  veil.addEventListener('click', closeCart);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && cart.classList.contains('is-open')) closeCart(); });
+
+  cartList.addEventListener('click', e => {
+    const b = e.target.closest('button[data-act]'); if (!b) return;
+    const k = +b.dataset.k;
+    if (b.dataset.act === 'plus')  items[k].qty++;
+    if (b.dataset.act === 'minus') items[k].qty > 1 ? items[k].qty-- : items.splice(k, 1);
+    if (b.dataset.act === 'del')   items.splice(k, 1);
+    drawCart();
+  });
+
+  $('#cartPay').addEventListener('click', () => {
+    if (!items.length) { flashBag('Ton panier est vide'); return; }
+    const n = items.reduce((s, i) => s + i.qty, 0);
+    cartNote.textContent = `Commande de ${n} pièce${n > 1 ? 's' : ''} — le paiement arrive bientôt.`;
+  });
+
   $$('.card__sizes').forEach(g => g.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     $$('button', g).forEach(x => x.classList.remove('is-sel'));
     b.classList.add('is-sel');
   }));
+
   $$('.card__add').forEach(btn => btn.addEventListener('click', () => {
     const card = btn.closest('.card');
     const size = $('.card__sizes .is-sel', card);
     if (!size) {
-      bagTxt.textContent = 'Choisis une taille';
-    } else {
-      count++;
-      bagTxt.textContent = `${btn.dataset.name} · ${size.textContent} — panier (${count})`;
+      flashBag('Choisis une taille');
+      $('.card__sizes', card).animate(
+        [{ transform: 'translateX(-4px)' }, { transform: 'translateX(4px)' }, { transform: 'none' }],
+        { duration: 260, iterations: 2 });
+      return;
     }
-    bag.classList.add('is-on');
-    clearTimeout(toast);
-    toast = setTimeout(() => bag.classList.remove('is-on'), 3200);
+    const name = btn.dataset.name, price = +btn.dataset.price, s = size.textContent;
+    const img = $('.card__a', card).getAttribute('src');
+    const found = items.find(i => i.name === name && i.size === s);
+    found ? found.qty++ : items.push({ name, size: s, price, img, qty: 1 });
+    drawCart();
+    bagBtn.classList.add('is-pop');
+    setTimeout(() => bagBtn.classList.remove('is-pop'), 400);
+    flashBag(`${name} · ${s} — ajouté`);
+    openCart();
   }));
 
-  /* ---------- 10. Personnalisation du nom ---------- */
+  drawCart();
+
+  /* ---------- 11. Personnalisation du nom ---------- */
   const nameTrack = $('#nameTrack'), nameInput = $('#nameInput');
   let nx = 0;
   const paint = () => {
@@ -148,15 +285,23 @@
       requestAnimationFrame(slide);
     })();
   }
-  $('#shareBtn')?.addEventListener('click', async () => {
+  const shareBtn = $('#shareBtn');
+  shareBtn?.addEventListener('click', async () => {
     const txt = `${(nameInput.value || 'UNSEEN').toUpperCase()} — UNSEEN · Strength Beyond Sight`;
+    const say = t => {
+      const old = shareBtn.dataset.label || shareBtn.textContent;
+      shareBtn.dataset.label = old;
+      shareBtn.textContent = t;
+      clearTimeout(shareBtn.t);
+      shareBtn.t = setTimeout(() => { shareBtn.textContent = old; }, 2200);
+    };
     try {
-      if (navigator.share) await navigator.share({ title: 'UNSEEN', text: txt, url: location.href });
-      else { await navigator.clipboard.writeText(`${txt} ${location.href}`); flash('Lien copié'); }
-    } catch (_) { /* partage annulé */ }
+      if (navigator.share) { await navigator.share({ title: 'UNSEEN', text: txt, url: location.href }); say('Partagé'); }
+      else { await navigator.clipboard.writeText(`${txt} ${location.href}`); say('Lien copié'); }
+    } catch (_) { say('Partage annulé'); }
   });
 
-  /* ---------- 11. Newsletter ---------- */
+  /* ---------- 12. Newsletter ---------- */
   const form = $('#newsForm'), msg = $('#newsMsg');
   const flash = t => { msg.textContent = t; clearTimeout(flash.t); flash.t = setTimeout(() => msg.textContent = '', 4000); };
   form?.addEventListener('submit', e => {
@@ -165,7 +310,7 @@
     form.reset();
   });
 
-  /* ---------- 12. Pétales de sakura ---------- */
+  /* ---------- 13. Pétales de sakura ---------- */
   const cvs = $('#petals'), ctx = cvs?.getContext('2d');
   let petals = [], cw = 0, ch = 0;
 
@@ -244,7 +389,7 @@
     }
   };
 
-  /* ---------- 13. Inclinaison 3D des cartes + du logo ---------- */
+  /* ---------- 14. Inclinaison 3D des cartes + du logo ---------- */
   if (!reduced && matchMedia('(hover:hover)').matches) {
     $$('.card').forEach(card => {
       const media = $('.card__media', card);
