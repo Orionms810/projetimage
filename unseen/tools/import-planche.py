@@ -5,6 +5,11 @@ les visuels du site.
 
     python3 tools/import-planche.py ma-planche.png            # imprimé en jaune (défaut)
     python3 tools/import-planche.py ma-planche.png --tel-quel # garde les couleurs d'origine
+    python3 tools/import-planche.py planche.png --tel-quel --noms hoodie_blanc,tee_blanc
+
+--noms remplace les bases de nom (une par ligne de la planche). Sur un vêtement
+clair, toujours utiliser --tel-quel : la recolorisation vise le blanc et repeindrait
+le vêtement entier.
 
 Le script repère les blocs clairs sur le fond noir pour découper les vues, les
 agrandit, les réaffûte, puis écrit dans assets/ :
@@ -23,8 +28,8 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'assets')
 SCALE = 2.4
-NOMS = [['hoodie_front', 'hoodie_back', 'hoodie_side1', 'hoodie_side2'],
-        ['tee_front',    'tee_back',    'tee_side1',    'tee_side2']]
+BASES = ['hoodie', 'tee']                    # une base par ligne de la planche
+SUFFIXES = ['front', 'back', 'side1', 'side2']
 LOGOS = {'hoodie_front': (.41, .32, .61, .42),
          'tee_front':    (.43, .24, .64, .35)}
 
@@ -62,6 +67,9 @@ def main():
     if len(sys.argv) < 2:
         print(__doc__); sys.exit(1)
     src, jaune = sys.argv[1], '--tel-quel' not in sys.argv
+    bases = BASES
+    if '--noms' in sys.argv:
+        bases = sys.argv[sys.argv.index('--noms') + 1].split(',')
 
     planche = Image.open(src).convert('RGB')
     clair = (np.asarray(planche).astype(np.float32).max(2) / 255 > .07).astype(np.float32)
@@ -77,7 +85,7 @@ def main():
             mx, my = int((x1 - x0) * .04), int((y1 - y0) * .04)
             vue = planche.crop((max(0, x0 - mx), max(0, y0 - my),
                                 min(planche.width, x1 + mx), min(planche.height, y1 + my)))
-            nom = NOMS[li][ci] if li < len(NOMS) and ci < 4 else f'vue_{li}_{ci}'
+            nom = f'{bases[li]}_{SUFFIXES[ci]}' if li < len(bases) and ci < 4 else f'vue_{li}_{ci}'
 
             if jaune:
                 recolore = en_jaune(vue)

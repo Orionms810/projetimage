@@ -49,7 +49,8 @@ tailles épuisées et plafonne la quantité au stock disponible.
 2. **Marquee** — bandeau défilant dont la vitesse suit le scroll
 3. **Manifeste** — 強さは目に見えない, avec un cube 3D qui présente les quatre faces
    de la pièce (rotation automatique, glisser à la souris ou flèches)
-4. **Collection** — hoodie 89 € / t-shirt compressé 45 €, flèches et vignettes pour
+4. **Collection** — quatre pièces (hoodie et t-shirt compressé, en noir et en blanc),
+   cartes générées depuis `js/produits.js`, flèches et vignettes pour
    parcourir les quatre vues, clic sur le visuel pour ouvrir la fiche
 5. **Détails** — carrousel horizontal : flèches cliquables, glisser, flèches du clavier
 6. **Personnalisation** — le visiteur tape son nom, il s'affiche en marquee géant (bouton Partager)
@@ -68,7 +69,11 @@ avec un effet de profondeur (taille, vitesse et opacité varient) et un vent qui
 - **Visuels** : `python3 tools/import-planche.py ta-planche.png` découpe une planche de
   8 vues sur fond noir, passe le blanc de l'imprimé en jaune et écrit les fichiers
   attendus dans `assets/`. La position des logos à préserver est déclarée dans `LOGOS`,
-  en proportions de la vue. L'option `--tel-quel` garde les couleurs d'origine.
+  en proportions de la vue. `--noms hoodie_blanc,tee_blanc` change les noms de fichiers,
+  et `--tel-quel` garde les couleurs d'origine — obligatoire sur un vêtement clair,
+  où la recolorisation repeindrait tout le vêtement.
+- **Ajouter un produit** : une entrée dans `js/produits.js` suffit — il apparaît sur
+  l'accueil, en boutique, dans les suggestions et le panier, sans toucher au HTML.
 - **Vues d'une pièce** : l'attribut `data-views` de chaque carte ; le script ne crée les
   vignettes que pour les fichiers réellement présents
 - **Imprimé de fond** : `assets/print.jpg`

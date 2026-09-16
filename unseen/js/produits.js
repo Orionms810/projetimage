@@ -8,8 +8,8 @@ window.UNSEEN = {
   produits: {
     hoodie: {
       ref: 'hoodie',
-      nom: 'Hoodie — Winter Arc 2026',
-      court: 'Hoodie',
+      nom: 'Hoodie Noir — Winter Arc 2026',
+      court: 'Hoodie noir',
       prix: 89,
       badge: 'Édition limitée',
       resume: "Hoodie oversize en coton lourd, imprimé all-over : l'éclair doré qui déchire les sakura.",
@@ -32,8 +32,8 @@ window.UNSEEN = {
     },
     tee: {
       ref: 'tee',
-      nom: 'T-shirt compressé — Winter Arc 2026',
-      court: 'T-shirt compressé',
+      nom: 'T-shirt compressé Noir — Winter Arc 2026',
+      court: 'T-shirt noir',
       prix: 45,
       badge: 'Nouveau',
       resume: 'Compression seconde peau, panneaux nid d\'abeille sur les flancs, imprimé all-over.',
@@ -52,6 +52,53 @@ window.UNSEEN = {
         ['tee_side1', 'Profil G'], ['tee_side2', 'Profil D']
       ],
       stock: { S: 5, M: 2, L: 7, XL: 4 }
+    },
+    hoodie_blanc: {
+      ref: 'hoodie_blanc',
+      nom: 'Hoodie Blanc — Winter Arc 2026',
+      court: 'Hoodie blanc',
+      prix: 89,
+      badge: 'Nouveau coloris',
+      resume: "Le même hoodie oversize, imprimé inversé : les sakura à l'encre noire sur coton blanc.",
+      description: `Coupe oversize, épaules tombantes, capuche doublée à cordons.
+        L'imprimé passe en négatif : branches et fleurs à l'encre noire sur un coton
+        blanc cassé, avec 桜の力 au centre du dos. Poche kangourou, côtes épaisses aux
+        poignets et à la base.`,
+      specs: [
+        ['Matière', 'Coton lourd 420 g/m²'],
+        ['Coupe', 'Oversize — prendre sa taille'],
+        ['Imprimé', 'All-over encre noire, numéroté à la main'],
+        ['Entretien', 'Lavage séparé à 30°C, pas de sèche-linge'],
+        ['Fabrication', 'Série de 40 pièces — Portugal']
+      ],
+      vues: [
+        ['hoodie_blanc_front', 'Face'], ['hoodie_blanc_back', 'Dos'],
+        ['hoodie_blanc_side1', 'Profil G'], ['hoodie_blanc_side2', 'Profil D']
+      ],
+      stock: { S: 3, M: 5, L: 4, XL: 2 }
+    },
+    tee_blanc: {
+      ref: 'tee_blanc',
+      nom: 'T-shirt compressé Blanc — Winter Arc 2026',
+      court: 'T-shirt blanc',
+      prix: 45,
+      badge: 'Nouveau coloris',
+      resume: 'Compression seconde peau en blanc, imprimé sakura noir et panneaux nid d\'abeille anthracite.',
+      description: `Même maille technique compressive, en blanc. Les branches à l'encre
+        noire courent le long de la colonne et des flancs, et les panneaux alvéolés
+        anthracite tranchent sur le corps clair. Coutures plates, col renforcé.`,
+      specs: [
+        ['Matière', 'Polyamide / élasthanne 230 g/m²'],
+        ['Coupe', 'Compression — seconde peau'],
+        ['Imprimé', 'Sublimation all-over encre noire'],
+        ['Entretien', 'Lavage séparé à 30°C, séchage à l\'air libre'],
+        ['Fabrication', 'Série de 50 pièces — Portugal']
+      ],
+      vues: [
+        ['tee_blanc_front', 'Face'], ['tee_blanc_back', 'Dos'],
+        ['tee_blanc_side1', 'Profil G'], ['tee_blanc_side2', 'Profil D']
+      ],
+      stock: { S: 6, M: 4, L: 3, XL: 5 }
     }
   }
 };

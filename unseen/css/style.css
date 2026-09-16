@@ -227,7 +227,9 @@ h1,h2,h3{margin:0;font-weight:400}
   box-shadow:0 0 10px var(--pink);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.25}}
 @media(max-width:860px){.coll__head{grid-template-columns:1fr}}
-.coll__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(20px,3vw,44px)}
+.coll__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));
+  gap:clamp(20px,3vw,44px)}
+@media(min-width:900px){.coll__grid{grid-template-columns:repeat(2,1fr)}}
 .card{opacity:0;transform:translateY(46px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .card.is-in{opacity:1;transform:none}
 .card__media{position:relative;overflow:hidden;background:#0a0a0c;aspect-ratio:4/5}
@@ -260,7 +262,8 @@ h1,h2,h3{margin:0;font-weight:400}
   flex:1;padding:.7em 0;background:transparent;border:1px solid var(--line);color:var(--mute);
   font-family:inherit;font-size:.66rem;letter-spacing:.14em;cursor:pointer;transition:all .3s var(--ease);
 }
-.card__sizes button:hover:not(.is-sel){border-color:#fff;color:#fff}
+.card__sizes button:hover:not(.is-sel):not(:disabled){border-color:#fff;color:#fff}
+.card__sizes button:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
 .card__sizes button.is-sel{background:#fff;color:#000;border-color:#fff}
 .card__add{width:100%}
 
@@ -488,8 +491,8 @@ h1,h2,h3{margin:0;font-weight:400}
 .shop__head{max-width:760px;margin-bottom:clamp(40px,7vh,80px)}
 .shop__head .eyebrow span{font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,sans-serif}
 .shop__intro{color:var(--mute);line-height:1.8;max-width:56ch;margin:1.6rem 0 0}
-.shop__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:clamp(20px,3vw,44px)}
+.shop__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:clamp(20px,3vw,40px)}
 .shopcard{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .shopcard.is-in{opacity:1;transform:none}
 .shopcard__media{position:relative;display:block;aspect-ratio:4/5;background:#0a0a0c;overflow:hidden}
