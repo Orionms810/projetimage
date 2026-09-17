@@ -227,7 +227,7 @@
       const b = document.createElement('button');
       b.type = 'button';
       b.setAttribute('aria-label', `Voir : ${v.label}`);
-      b.innerHTML = `<img src="${v.src}" alt=""><span>${v.label}</span>`;
+      b.innerHTML = `<img src="${v.src}" alt="">`;
       b.addEventListener('click', () => montrer(dispo.indexOf(v)));
       box.appendChild(b);
       return b;

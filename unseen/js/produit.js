@@ -48,7 +48,7 @@
   };
   thumbs.innerHTML = p.vues.map(([nom, label], k) =>
     `<button type="button" aria-label="Voir : ${label}" data-k="${k}">
-       <img src="assets/${nom}.jpg" alt=""><span>${label}</span></button>`).join('');
+       <img src="assets/${nom}.jpg" alt=""></button>`).join('');
   thumbs.addEventListener('click', e => {
     const b = e.target.closest('button[data-k]'); if (b) montrer(+b.dataset.k);
   });

@@ -75,16 +75,29 @@ def main():
     clair = (np.asarray(planche).astype(np.float32).max(2) / 255 > .07).astype(np.float32)
 
     lignes = bandes(clair, 1)
-    if len(lignes) != 2:
-        print(f'! {len(lignes)} ligne(s) détectée(s) au lieu de 2 — vérifie la planche')
+    if len(lignes) == 1 and len(bases) == 2:
+        # les deux rangées se touchent : on coupe à la ligne la moins chargée du milieu
+        y0, y1 = lignes[0]
+        proj = clair[y0:y1].mean(axis=1)
+        m0, m1 = int(len(proj) * .38), int(len(proj) * .62)
+        coupe = y0 + m0 + int(np.argmin(proj[m0:m1]))
+        lignes = [(y0, coupe), (coupe, y1)]
+        print(f'  rangées accolées : coupées à y={coupe}')
+    if len(lignes) != len(bases):
+        print(f'! {len(lignes)} rangée(s) détectée(s) pour {len(bases)} attendue(s) — vérifie la planche')
 
-    for li, (y0, y1) in enumerate(lignes[:2]):
+    for li, (y0, y1) in enumerate(lignes[:len(bases)]):
         cols = bandes(clair[y0:y1], 0)
         print(f'ligne {li + 1} : {len(cols)} vue(s)')
+        # on ne déborde jamais sur la rangée ni la colonne voisine
+        haut = lignes[li - 1][1] if li else 0
+        bas = lignes[li + 1][0] if li + 1 < len(lignes) else planche.height
         for ci, (x0, x1) in enumerate(cols[:4]):
             mx, my = int((x1 - x0) * .04), int((y1 - y0) * .04)
-            vue = planche.crop((max(0, x0 - mx), max(0, y0 - my),
-                                min(planche.width, x1 + mx), min(planche.height, y1 + my)))
+            gauche = cols[ci - 1][1] if ci else 0
+            droite = cols[ci + 1][0] if ci + 1 < len(cols) else planche.width
+            vue = planche.crop((max(x0 - mx, gauche), max(y0 - my, haut),
+                                min(x1 + mx, droite), min(y1 + my, bas)))
             nom = f'{bases[li]}_{SUFFIXES[ci]}' if li < len(bases) and ci < 4 else f'vue_{li}_{ci}'
 
             if jaune:
