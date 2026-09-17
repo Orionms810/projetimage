@@ -21,7 +21,6 @@
         <a class="card__media" href="produit.html?ref=${p.ref}" aria-label="Voir la fiche : ${p.nom}">
           <img loading="lazy" decoding="async" src="assets/${p.vues[0][0]}.jpg" alt="${p.nom}" class="card__main">
           <span class="card__badge">${p.badge}</span>
-          <span class="card__go">Voir la fiche</span>
         </a>
         <div class="card__views" data-views="${vues}"></div>
         <div class="card__info">

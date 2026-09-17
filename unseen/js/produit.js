@@ -122,7 +122,6 @@
     <article class="shopcard is-in">
       <a class="shopcard__media" href="produit.html?ref=${a.ref}">
         <img loading="lazy" decoding="async" src="assets/${a.vues[0][0]}.jpg" alt="${a.nom}">
-        <span class="card__go">Voir la fiche</span>
       </a>
       <div class="shopcard__body">
         <h3><a href="produit.html?ref=${a.ref}">${a.nom}</a></h3>

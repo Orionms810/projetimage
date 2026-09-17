@@ -473,13 +473,6 @@ h1,h2,h3{margin:0;font-weight:400}
   font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);
   background:rgba(0,0,0,.6);padding:.4em .7em;border:1px solid var(--line);
 }
-.card__go{
-  position:absolute;left:50%;bottom:16px;transform:translate(-50%,10px);z-index:3;
-  font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:#000;background:#fff;
-  padding:.7em 1.3em;opacity:0;transition:opacity .35s var(--ease),transform .35s var(--ease);
-  pointer-events:none;
-}
-.card__media:hover .card__go{opacity:1;transform:translate(-50%,0)}
 .card__info h3 a{transition:color .3s}
 .card__info h3 a:hover{color:var(--pink)}
 
@@ -578,7 +571,6 @@ h1,h2,h3{margin:0;font-weight:400}
 .prod__autres .shopcard__body h3{font-size:.76rem;margin-bottom:.4rem}
 .prod__autres .shopcard__bas{margin:0}
 .prod__autres .card__price{font-size:.8rem}
-.prod__autres .card__go{font-size:.46rem;padding:.55em 1em;bottom:10px}
 
 @media (prefers-reduced-motion:reduce){
   .cube{transform:none!important}

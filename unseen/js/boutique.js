@@ -27,7 +27,6 @@
         <a class="shopcard__media" href="produit.html?ref=${p.ref}">
           <img loading="lazy" decoding="async" src="assets/${p.vues[0][0]}.jpg" alt="${p.nom}">
           <span class="card__badge">${p.badge}</span>
-          <span class="card__go">Voir la fiche</span>
         </a>
         <div class="shopcard__body">
           <h2><a href="produit.html?ref=${p.ref}">${p.nom}</a></h2>
