@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UNSEEN — Précommandes bientôt ouvertes</title>
-<meta name="description" content="UNSEEN · Winter Arc 2026. Première série de t-shirts compressés, produite en quantité limitée. Laisse ton email pour être prévenu à l'ouverture des précommandes.">
+<meta name="description" content="UNSEEN · Winter Arc 2026. Le t-shirt compressé, en deux coloris, produit en quantité limitée. Laisse ton email pour être prévenu à l'ouverture des précommandes.">
 <meta name="theme-color" content="#000000">
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="UNSEEN — Strength Beyond Sight">
 <meta property="og:description" content="Winter Arc 2026 — précommandes bientôt ouvertes. 見えない力">
-<meta property="og:image" content="assets/print.jpg">
+<meta property="og:image" content="assets/tee_front.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,14 +39,12 @@
   --pad:clamp(20px,5vw,64px);
 }
 *{box-sizing:border-box}
-html,body{height:100%}
 body{
   margin:0;background:var(--black);color:var(--white);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  font-weight:300;-webkit-font-smoothing:antialiased;
-  min-height:100svh;display:flex;flex-direction:column;
-  overflow-x:hidden;
+  font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
+img{max-width:100%;display:block}
 
 /* ── décor ── */
 .bg{position:fixed;inset:-8%;z-index:0;pointer-events:none}
@@ -56,22 +54,22 @@ body{
   transform:scale(1.08);animation:breathe 16s ease-in-out infinite alternate}
 @keyframes breathe{to{transform:scale(1.18)}}
 .bg__glow{position:absolute;inset:0;
-  background:radial-gradient(48% 42% at 50% 46%,rgba(0,0,0,.82),rgba(0,0,0,.3) 68%,transparent 100%),
-             radial-gradient(72% 62% at 50% 50%,rgba(255,45,120,.15),transparent 72%),
-             linear-gradient(to bottom,rgba(0,0,0,.92),rgba(0,0,0,.55) 42%,rgba(0,0,0,.96))}
+  background:radial-gradient(48% 42% at 50% 40%,rgba(0,0,0,.82),rgba(0,0,0,.3) 68%,transparent 100%),
+             radial-gradient(72% 62% at 50% 44%,rgba(255,45,120,.15),transparent 72%),
+             linear-gradient(to bottom,rgba(0,0,0,.92),rgba(0,0,0,.6) 42%,rgba(0,0,0,.98))}
 .grain{position:fixed;inset:-150%;z-index:900;pointer-events:none;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 700ms steps(4) infinite}
 @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(3%,1%)}}
 .vignette{position:fixed;inset:0;z-index:890;pointer-events:none;
-  background:radial-gradient(120% 90% at 50% 45%,transparent 45%,rgba(0,0,0,.75) 100%)}
+  background:radial-gradient(130% 80% at 50% 30%,transparent 50%,rgba(0,0,0,.7) 100%)}
 
-/* ── structure ── */
-.wrap{position:relative;z-index:10;flex:1;display:grid;place-items:center;
-  padding:clamp(40px,8vh,80px) var(--pad)}
+/* ══ HERO ══ */
+.hero{position:relative;z-index:10;min-height:100svh;display:grid;place-items:center;
+  padding:clamp(48px,9vh,88px) var(--pad) clamp(78px,11vh,110px)}
 .card{width:100%;max-width:560px;text-align:center}
 
-.mark{width:clamp(190px,42vw,300px);height:auto;display:block;margin:0 auto clamp(26px,5vh,40px)}
+.mark{width:clamp(190px,42vw,300px);height:auto;margin:0 auto clamp(26px,5vh,40px)}
 
 .kicker{font-size:clamp(.56rem,1.4vw,.7rem);letter-spacing:.3em;text-transform:uppercase;
   color:var(--mute);margin:0 0 clamp(18px,3.5vh,26px)}
@@ -87,6 +85,7 @@ h1 em{font-style:normal;color:var(--pink)}
 /* ── formulaire ── */
 form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:0 0 14px}
 .field{flex:1 1 260px;min-width:0;position:relative}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 input[type=email]{
   width:100%;height:54px;padding:0 18px;
   background:rgba(255,255,255,.05);color:var(--white);
@@ -111,7 +110,6 @@ button:disabled{opacity:.45;cursor:default}
 
 .msg{min-height:1.4em;font-size:.82rem;letter-spacing:.02em;margin:0 0 6px}
 .msg--err{color:var(--pink)}
-
 .fine{font-size:.72rem;line-height:1.7;color:rgba(255,255,255,.4);margin:0 auto;max-width:38ch}
 
 /* ── état succès ── */
@@ -122,18 +120,82 @@ button:disabled{opacity:.45;cursor:default}
 .done__jp{font-family:'Noto Sans JP',sans-serif;font-size:clamp(1.5rem,5vw,2rem);
   color:var(--pink);margin:0 0 16px;letter-spacing:.1em}
 .done__t{font-size:1.02rem;line-height:1.6;color:#fff;margin:0 0 10px}
-.done__s{font-size:.82rem;line-height:1.7;color:var(--mute);margin:0;max-width:36ch;
-  margin-inline:auto}
+.done__s{font-size:.82rem;line-height:1.7;color:var(--mute);margin:0 auto;max-width:36ch}
+
+/* ── indice de scroll ── */
+.cue{position:absolute;bottom:clamp(26px,5vh,42px);left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.36)}
+.cue span{width:1px;height:38px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.5));
+  animation:cue 2.4s var(--ease) infinite}
+@keyframes cue{0%,100%{opacity:.25;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ══ PRODUIT ══ */
+.shop{position:relative;z-index:10;padding:0 var(--pad) clamp(60px,10vh,110px);
+  max-width:1180px;margin:0 auto}
+.shop__head{text-align:center;margin:0 0 clamp(34px,6vh,56px)}
+.shop__eyebrow{font-family:'Noto Sans JP',sans-serif;font-size:.86rem;letter-spacing:.24em;
+  color:var(--pink);margin:0 0 12px}
+h2{font-family:'Anton',Impact,sans-serif;font-weight:400;
+  font-size:clamp(1.5rem,5.4vw,2.3rem);line-height:1.05;letter-spacing:.01em;
+  text-transform:uppercase;margin:0 0 14px}
+.shop__sub{font-size:.9rem;line-height:1.7;color:rgba(255,255,255,.6);margin:0 auto;max-width:46ch}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));
+  gap:clamp(18px,3vw,34px)}
+
+.item{border:1px solid var(--line);border-radius:3px;overflow:hidden;background:#040404;
+  transition:border-color .45s var(--ease),transform .45s var(--ease)}
+.item:hover{border-color:rgba(255,255,255,.3);transform:translateY(-4px)}
+.item__media{position:relative;aspect-ratio:1/1.02;background:#000;cursor:pointer}
+.item__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:opacity .6s var(--ease)}
+.item__media .back{opacity:0}
+.item:hover .front,.item.flip .front{opacity:0}
+.item:hover .back,.item.flip .back{opacity:1}
+.item__flag{position:absolute;top:14px;left:14px;z-index:3;
+  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:6px 10px;border:1px solid var(--line);border-radius:2px;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:rgba(255,255,255,.8)}
+.item__hint{position:absolute;bottom:14px;right:14px;z-index:3;
+  font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);
+  transition:opacity .4s}
+.item:hover .item__hint,.item.flip .item__hint{opacity:0}
+.item__body{padding:18px 20px 22px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:14px}
+.item__name{font-family:'Anton',Impact,sans-serif;font-size:1.1rem;letter-spacing:.03em;
+  text-transform:uppercase;margin:0}
+.item__meta{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);white-space:nowrap}
+
+.specs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px;
+  margin:clamp(30px,5vh,46px) 0 0}
+.specs li{list-style:none;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:999px;padding:8px 15px}
+
+.disclaimer{text-align:center;font-size:.7rem;line-height:1.7;color:rgba(255,255,255,.34);
+  margin:clamp(26px,4vh,38px) auto 0;max-width:52ch}
+
+.back2{text-align:center;margin:clamp(34px,6vh,52px) 0 0}
+.back2 a{display:inline-block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);
+  padding-bottom:4px;transition:color .3s,border-color .3s}
+.back2 a:hover{color:var(--pink);border-color:var(--pink)}
 
 /* ── pied ── */
-.foot{position:relative;z-index:10;padding:0 var(--pad) clamp(22px,4vh,34px);
+.foot{position:relative;z-index:10;padding:0 var(--pad) clamp(26px,4vh,38px);
   display:flex;gap:10px 22px;justify-content:center;flex-wrap:wrap;
   font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.34)}
 .foot a{color:inherit;text-decoration:none;transition:color .3s}
 .foot a:hover{color:var(--pink)}
 
+/* ── apparition au scroll ── */
+.reveal{opacity:0;transform:translateY(26px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
 }
 </style>
 </head>
@@ -146,7 +208,8 @@ button:disabled{opacity:.45;cursor:default}
 <div class="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 
-<main class="wrap">
+<!-- ══ HERO ══ -->
+<header class="hero" id="top">
   <div class="card" id="card">
 
     <img src="assets/wordmark.png" alt="UNSEEN" class="mark" width="700" height="370">
@@ -162,7 +225,7 @@ button:disabled{opacity:.45;cursor:default}
 
     <form id="form" novalidate>
       <div class="field">
-        <label for="email" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Adresse email</label>
+        <label for="email" class="sr">Adresse email</label>
         <input id="email" name="fields[email]" type="email" inputmode="email"
                autocomplete="email" placeholder="ton@email.com" required>
       </div>
@@ -184,6 +247,73 @@ button:disabled{opacity:.45;cursor:default}
     </div>
 
   </div>
+
+  <div class="cue" aria-hidden="true"><span></span>Découvrir</div>
+</header>
+
+<!-- ══ PRODUIT ══ -->
+<main class="shop" id="collection">
+
+  <div class="shop__head reveal">
+    <p class="shop__eyebrow">桜の力</p>
+    <h2>Le compressé, en deux coloris</h2>
+    <p class="shop__sub">Même coupe, même construction, mêmes panneaux latéraux.
+      Seul l'imprimé change.</p>
+  </div>
+
+  <div class="grid">
+
+    <article class="item reveal">
+      <div class="item__media" tabindex="0" role="button"
+           aria-label="Voir le dos du coloris noir">
+        <span class="item__flag">Coloris 01</span>
+        <img class="front" src="assets/tee_front.jpg" alt="T-shirt compressé UNSEEN noir, vue de face"
+             width="1116" height="1108" loading="lazy" decoding="async">
+        <img class="back" src="assets/tee_back.jpg" alt="T-shirt compressé UNSEEN noir, vue de dos"
+             width="1084" height="1108" loading="lazy" decoding="async">
+        <span class="item__hint">Voir le dos</span>
+      </div>
+      <div class="item__body">
+        <h3 class="item__name">Noir</h3>
+        <span class="item__meta">S · M · L · XL</span>
+      </div>
+    </article>
+
+    <article class="item reveal">
+      <div class="item__media" tabindex="0" role="button"
+           aria-label="Voir le dos du coloris blanc">
+        <span class="item__flag">Coloris 02</span>
+        <img class="front" src="assets/tee_blanc_front.jpg" alt="T-shirt compressé UNSEEN blanc, vue de face"
+             width="1176" height="1171" loading="lazy" decoding="async">
+        <img class="back" src="assets/tee_blanc_back.jpg" alt="T-shirt compressé UNSEEN blanc, vue de dos"
+             width="1137" height="1171" loading="lazy" decoding="async">
+        <span class="item__hint">Voir le dos</span>
+      </div>
+      <div class="item__body">
+        <h3 class="item__name">Blanc</h3>
+        <span class="item__meta">S · M · L · XL</span>
+      </div>
+    </article>
+
+  </div>
+
+  <ul class="specs reveal">
+    <li>Coupe compressive</li>
+    <li>Polyester / élasthanne</li>
+    <li>Imprimé all-over</li>
+    <li>Panneaux nid d'abeille</li>
+    <li>Coutures flatlock</li>
+  </ul>
+
+  <p class="disclaimer reveal">
+    Visuels de conception. Les photos du vêtement fini seront publiées
+    dès la réception des premiers exemplaires.
+  </p>
+
+  <div class="back2 reveal">
+    <a href="#top">Être prévenu à l'ouverture</a>
+  </div>
+
 </main>
 
 <footer class="foot">
@@ -232,7 +362,7 @@ button:disabled{opacity:.45;cursor:default}
     e.preventDefault();
     const email = champ.value.trim();
 
-    if (!email)        return erreur('Il manque ton adresse email.');
+    if (!email)         return erreur('Il manque ton adresse email.');
     if (!valide(email)) return erreur("Cette adresse n'a pas l'air valide.");
 
     if (COMPTE === 'REMPLACE_MOI') {
@@ -261,10 +391,33 @@ button:disabled{opacity:.45;cursor:default}
     }
   });
 
-  /* déjà inscrit sur cet appareil : on affiche directement la confirmation */
   try {
     if (localStorage.getItem('unseen.waitlist')) carte.classList.add('is-done');
   } catch (_) {}
+
+  /* ── recto / verso au tap (le survol suffit à la souris) ── */
+  document.querySelectorAll('.item__media').forEach(media => {
+    const bascule = () => media.closest('.item').classList.toggle('flip');
+    media.addEventListener('click', bascule);
+    media.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); bascule(); }
+    });
+  });
+
+  /* ── apparition au scroll ── */
+  const cibles = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    cibles.forEach(el => el.classList.add('in'));
+  } else {
+    const obs = new IntersectionObserver((entrees) => {
+      entrees.forEach((entree, i) => {
+        if (!entree.isIntersecting) return;
+        setTimeout(() => entree.target.classList.add('in'), i * 90);
+        obs.unobserve(entree.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: .12 });
+    cibles.forEach(el => obs.observe(el));
+  }
 })();
 </script>
 
