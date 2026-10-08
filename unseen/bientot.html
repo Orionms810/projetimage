@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNSEEN — Précommandes bientôt ouvertes</title>
+<meta name="description" content="UNSEEN · Winter Arc 2026. Première série de t-shirts compressés, produite en quantité limitée. Laisse ton email pour être prévenu à l'ouverture des précommandes.">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="UNSEEN — Strength Beyond Sight">
+<meta property="og:description" content="Winter Arc 2026 — précommandes bientôt ouvertes. 見えない力">
+<meta property="og:image" content="assets/print.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/anton-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;
+  src:url('fonts/anton-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;
+  src:url('fonts/anton-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:swap;
+  src:url('fonts/inter-300-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;
+  src:url('fonts/inter-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;
+  src:url('fonts/inter-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+
+:root{
+  --black:#000; --white:#fff;
+  --mute:rgba(255,255,255,.55);
+  --line:rgba(255,255,255,.14);
+  --pink:#ff2d78;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --pad:clamp(20px,5vw,64px);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--black);color:var(--white);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-weight:300;-webkit-font-smoothing:antialiased;
+  min-height:100svh;display:flex;flex-direction:column;
+  overflow-x:hidden;
+}
+
+/* ── décor ── */
+.bg{position:fixed;inset:-8%;z-index:0;pointer-events:none}
+.bg__tile{position:absolute;inset:0;
+  background:url("assets/print.jpg") center/cover repeat;
+  opacity:.17;filter:saturate(1.05) contrast(1.02) blur(.6px);
+  transform:scale(1.08);animation:breathe 16s ease-in-out infinite alternate}
+@keyframes breathe{to{transform:scale(1.18)}}
+.bg__glow{position:absolute;inset:0;
+  background:radial-gradient(48% 42% at 50% 46%,rgba(0,0,0,.82),rgba(0,0,0,.3) 68%,transparent 100%),
+             radial-gradient(72% 62% at 50% 50%,rgba(255,45,120,.15),transparent 72%),
+             linear-gradient(to bottom,rgba(0,0,0,.92),rgba(0,0,0,.55) 42%,rgba(0,0,0,.96))}
+.grain{position:fixed;inset:-150%;z-index:900;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 700ms steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(3%,1%)}}
+.vignette{position:fixed;inset:0;z-index:890;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 45%,transparent 45%,rgba(0,0,0,.75) 100%)}
+
+/* ── structure ── */
+.wrap{position:relative;z-index:10;flex:1;display:grid;place-items:center;
+  padding:clamp(40px,8vh,80px) var(--pad)}
+.card{width:100%;max-width:560px;text-align:center}
+
+.mark{width:clamp(190px,42vw,300px);height:auto;display:block;margin:0 auto clamp(26px,5vh,40px)}
+
+.kicker{font-size:clamp(.56rem,1.4vw,.7rem);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--mute);margin:0 0 clamp(18px,3.5vh,26px)}
+
+h1{font-family:'Anton',Impact,sans-serif;font-weight:400;
+  font-size:clamp(1.9rem,7.5vw,3.1rem);line-height:1.02;letter-spacing:.01em;
+  text-transform:uppercase;margin:0 0 clamp(14px,2.6vh,20px);text-wrap:balance}
+h1 em{font-style:normal;color:var(--pink)}
+
+.lede{font-size:clamp(.92rem,2.4vw,1.02rem);line-height:1.65;color:rgba(255,255,255,.76);
+  margin:0 auto clamp(26px,5vh,38px);max-width:40ch}
+
+/* ── formulaire ── */
+form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:0 0 14px}
+.field{flex:1 1 260px;min-width:0;position:relative}
+input[type=email]{
+  width:100%;height:54px;padding:0 18px;
+  background:rgba(255,255,255,.05);color:var(--white);
+  border:1px solid var(--line);border-radius:2px;
+  font-family:inherit;font-size:.95rem;font-weight:300;letter-spacing:.01em;
+  transition:border-color .3s var(--ease),background .3s var(--ease)}
+input[type=email]::placeholder{color:rgba(255,255,255,.38)}
+input[type=email]:hover{border-color:rgba(255,255,255,.26)}
+input[type=email]:focus{outline:none;border-color:var(--pink);background:rgba(255,255,255,.08)}
+input[type=email][aria-invalid="true"]{border-color:var(--pink)}
+
+button{
+  flex:0 0 auto;height:54px;padding:0 30px;cursor:pointer;
+  background:var(--white);color:var(--black);
+  border:1px solid var(--white);border-radius:2px;
+  font-family:inherit;font-size:.74rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  transition:background .3s var(--ease),color .3s var(--ease),opacity .3s}
+button:hover:not(:disabled){background:var(--pink);border-color:var(--pink);color:var(--white)}
+button:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+button:disabled{opacity:.45;cursor:default}
+
+.msg{min-height:1.4em;font-size:.82rem;letter-spacing:.02em;margin:0 0 6px}
+.msg--err{color:var(--pink)}
+
+.fine{font-size:.72rem;line-height:1.7;color:rgba(255,255,255,.4);margin:0 auto;max-width:38ch}
+
+/* ── état succès ── */
+.done{display:none}
+.is-done form,.is-done .lede,.is-done .fine{display:none}
+.is-done .done{display:block;animation:rise .7s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.done__jp{font-family:'Noto Sans JP',sans-serif;font-size:clamp(1.5rem,5vw,2rem);
+  color:var(--pink);margin:0 0 16px;letter-spacing:.1em}
+.done__t{font-size:1.02rem;line-height:1.6;color:#fff;margin:0 0 10px}
+.done__s{font-size:.82rem;line-height:1.7;color:var(--mute);margin:0;max-width:36ch;
+  margin-inline:auto}
+
+/* ── pied ── */
+.foot{position:relative;z-index:10;padding:0 var(--pad) clamp(22px,4vh,34px);
+  display:flex;gap:10px 22px;justify-content:center;flex-wrap:wrap;
+  font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.34)}
+.foot a{color:inherit;text-decoration:none;transition:color .3s}
+.foot a:hover{color:var(--pink)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <div class="bg__tile"></div>
+  <div class="bg__glow"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<main class="wrap">
+  <div class="card" id="card">
+
+    <img src="assets/wordmark.png" alt="UNSEEN" class="mark" width="700" height="370">
+
+    <p class="kicker">Strength beyond sight</p>
+
+    <h1>Winter&nbsp;Arc&nbsp;2026<br><em>précommandes bientôt</em></h1>
+
+    <p class="lede">
+      Première série du t-shirt compressé, produite en quantité limitée.
+      Laisse ton email&nbsp;: tu seras prévenu en premier à l'ouverture.
+    </p>
+
+    <form id="form" novalidate>
+      <div class="field">
+        <label for="email" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Adresse email</label>
+        <input id="email" name="fields[email]" type="email" inputmode="email"
+               autocomplete="email" placeholder="ton@email.com" required>
+      </div>
+      <button type="submit" id="submit">Me prévenir</button>
+    </form>
+
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+
+    <p class="fine">
+      Un seul email, à l'ouverture des précommandes. Pas de spam,
+      désinscription en un clic. Ton adresse ne sera jamais transmise à un tiers.
+    </p>
+
+    <div class="done" id="done">
+      <p class="done__jp">見えない力</p>
+      <p class="done__t">C'est noté.</p>
+      <p class="done__s">Tu recevras un email dès que les précommandes ouvrent.
+        Pense à vérifier tes spams la première fois.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <span>© 2026 UNSEEN</span>
+  <a href="mailto:contact@unseenstorm.com">contact@unseenstorm.com</a>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════
+     À REMPLIR — les deux identifiants de ton formulaire MailerLite.
+     MailerLite → Formulaires → Embedded form → onglet "Code".
+     Dans l'URL du champ "action" tu lis :
+       https://assets.mailerlite.com/jsonp/ 123456 /forms/ 7654321 /subscribe
+                                           ^^^^^^          ^^^^^^^
+                                           COMPTE          FORMULAIRE
+     ═══════════════════════════════════════════════════════════ */
+  const COMPTE     = 'REMPLACE_MOI';
+  const FORMULAIRE = 'REMPLACE_MOI';
+
+  const url = `https://assets.mailerlite.com/jsonp/${COMPTE}/forms/${FORMULAIRE}/subscribe`;
+
+  const form   = document.getElementById('form');
+  const champ  = document.getElementById('email');
+  const bouton = document.getElementById('submit');
+  const msg    = document.getElementById('msg');
+  const carte  = document.getElementById('card');
+
+  const valide = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+
+  const erreur = texte => {
+    msg.textContent = texte;
+    msg.className = 'msg msg--err';
+    champ.setAttribute('aria-invalid', 'true');
+    champ.focus();
+  };
+
+  champ.addEventListener('input', () => {
+    champ.removeAttribute('aria-invalid');
+    if (msg.textContent) { msg.textContent = ''; msg.className = 'msg'; }
+  });
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = champ.value.trim();
+
+    if (!email)        return erreur('Il manque ton adresse email.');
+    if (!valide(email)) return erreur("Cette adresse n'a pas l'air valide.");
+
+    if (COMPTE === 'REMPLACE_MOI') {
+      return erreur('Formulaire pas encore relié — identifiants MailerLite manquants.');
+    }
+
+    bouton.disabled = true;
+    const libelle = bouton.textContent;
+    bouton.textContent = 'Envoi…';
+    msg.textContent = '';
+    msg.className = 'msg';
+
+    const corps = new FormData();
+    corps.append('fields[email]', email);
+    corps.append('ml-submit', '1');
+    corps.append('anticsrf', 'true');
+
+    try {
+      await fetch(url, { method: 'POST', mode: 'no-cors', body: corps });
+      carte.classList.add('is-done');
+      try { localStorage.setItem('unseen.waitlist', email); } catch (_) {}
+    } catch (_) {
+      bouton.disabled = false;
+      bouton.textContent = libelle;
+      erreur("L'envoi a échoué. Réessaie dans un instant.");
+    }
+  });
+
+  /* déjà inscrit sur cet appareil : on affiche directement la confirmation */
+  try {
+    if (localStorage.getItem('unseen.waitlist')) carte.classList.add('is-done');
+  } catch (_) {}
+})();
+</script>
+
+</body>
+</html>
