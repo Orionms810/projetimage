@@ -110,7 +110,10 @@ button:disabled{opacity:.45;cursor:default}
 
 .msg{min-height:1.4em;font-size:.82rem;letter-spacing:.02em;margin:0 0 6px}
 .msg--err{color:var(--pink)}
-.fine{font-size:.72rem;line-height:1.7;color:rgba(255,255,255,.4);margin:0 auto;max-width:38ch}
+.fine{font-size:.72rem;line-height:1.7;color:rgba(255,255,255,.4);margin:0 auto;max-width:40ch}
+.fine a{color:rgba(255,255,255,.62);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.26);transition:color .3s,border-color .3s}
+.fine a:hover{color:var(--pink);border-color:var(--pink)}
 
 /* ── état succès ── */
 .done{display:none}
@@ -237,6 +240,8 @@ h2{font-family:'Anton',Impact,sans-serif;font-weight:400;
     <p class="fine">
       Un seul email, à l'ouverture des précommandes. Pas de spam,
       désinscription en un clic. Ton adresse ne sera jamais transmise à un tiers.
+      En t'inscrivant, tu acceptes notre
+      <a href="confidentialite.html">politique de confidentialité</a>.
     </p>
 
     <div class="done" id="done">
@@ -318,6 +323,8 @@ h2{font-family:'Anton',Impact,sans-serif;font-weight:400;
 
 <footer class="foot">
   <span>© 2026 UNSEEN</span>
+  <a href="mentions-legales.html">Mentions légales</a>
+  <a href="confidentialite.html">Confidentialité</a>
   <a href="mailto:contact@unseenstorm.com">contact@unseenstorm.com</a>
 </footer>
 
